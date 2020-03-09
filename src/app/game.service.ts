@@ -39,4 +39,8 @@ export class GameService {
   getGames(): Game[] {
     return [...this.games];
   }
+
+  getGame(id: string): Game {
+    return this.games.find(element => id === element.id);
+  }
 }

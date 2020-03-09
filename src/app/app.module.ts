@@ -7,6 +7,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GameCardComponent } from './game-list/game-card/game-card.component';
 import { GameListComponent } from './game-list/game-list.component';
+import { GameDetailComponent } from './game-detail/game-detail.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { GameListComponent } from './game-list/game-list.component';
     AdvertisingBannerComponent,
     HomepageComponent,
     GameCardComponent,
-    GameListComponent
+    GameListComponent,
+    GameDetailComponent
   ],
   imports: [
     BrowserModule,
