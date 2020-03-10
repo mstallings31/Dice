@@ -8,6 +8,7 @@ const app = express();
 
 // Routes
 const gameRoutes = require('./routes/games');
+const userRoutes = require('./routes/user');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,11 +22,12 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
 app.use('/api/games', gameRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;

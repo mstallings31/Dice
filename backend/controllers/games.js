@@ -65,7 +65,6 @@ exports.createGame = (req, res, next) => {
       });
     })
     .catch(error => {
-      console.log("createGame() - error on save(): " + error);
       res.status(500).json({
         message: 'Game creation failed',
         error: error
@@ -75,5 +74,33 @@ exports.createGame = (req, res, next) => {
 
 // PUT (update) an existing game
 exports.updateGame = (req, res, next) => {
-
+  let imagePath = req.body.imagePath;
+  if (req.file) {
+    const url = req.protocol + '://' + req.get("host");
+    imagePath = url + "/images/" + req.file.filename;
+  }
+  const game = new Game({
+    _id: req.body._id,
+    title: req.body.title,
+    introText: req.body.introText,
+    description: req.body.description,
+    minPlayers: req.body.minPlayers,
+    maxPlayers: req.body.maxPlayers,
+    genre: req.body.genre,
+    minAge: req.body.minAge,
+    minPlaytime: req.body.minPlaytime,
+    maxPlaytime:req.body.maxPlaytime,
+    imagePath: imagePath
+  });
+  Game.updateOne({_id: req.params.id}, game)
+    .then(result => {
+      if(result.n > 0) {
+        res.status(200).json({message: 'Update sucessful!'});
+      } else {
+        res.status(401).json({message: 'Not authorized!'});
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: "Couldn't update post", error: error });
+    })
 };

@@ -97,7 +97,7 @@
             type="file"
             class="custom-file-input"
             (change)="onImagePicked($event)">
-          <label class="custom-file-label" for="customFile">Choose an image</label>
+          <label class="custom-file-label" for="customFile">{{ imagePreview ? imagePreview : "Choose an image"}}</label>
         </div>
       </div>
     </div>

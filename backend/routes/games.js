@@ -6,8 +6,7 @@ const extractFile = require('../middleware/file');
 router.get("", GameController.getGames);
 router.post("", extractFile, GameController.createGame);
 
-router
-  .route("/:id")
-  .get(GameController.getGame);
+router.get("/:id", GameController.getGame);
+router.put("/:id", extractFile, GameController.updateGame);
 
 module.exports = router;

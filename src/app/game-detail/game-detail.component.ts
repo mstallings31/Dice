@@ -10,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class GameDetailComponent implements OnInit {
   id: string;
-  game: Game;
+  game: Game = new Game();
 
   constructor(private gameService: GameService,
               private activatedRoute: ActivatedRoute) { }
@@ -19,8 +19,8 @@ export class GameDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        this.gameService.getGame(this.id).subscribe(
-          game => {
+        this.gameService.getGame(this.id)
+        .subscribe(game => {
             this.game = game;
           }
         );

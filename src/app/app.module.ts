@@ -11,6 +11,8 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EllipsisPipe } from './ellipsis.pipe';
+import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     GameCardComponent,
     GameListComponent,
     GameDetailComponent,
-    GameFormComponent
+    GameFormComponent,
+    EllipsisPipe,
+    HtmlLineBreaksPipe
   ],
   imports: [
     BrowserModule,

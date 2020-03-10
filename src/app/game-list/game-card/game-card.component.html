@@ -2,7 +2,7 @@
   <img class="card-img-top img-fluid" [src]="game.imagePath">
   <div class="card-body">
       <h5 class="card-title text-center">{{ game.title }}</h5>
-      <p class="card-text">{{ game.introText }}</p>
+      <p class="card-text">{{ game.introText | ellipsis: 100 }}</p>
       <div class="d-flex justify-content-between align-items-center">
         <div>
           <span class="badge badge-pill badge-secondary">{{ game.genre }}</span>

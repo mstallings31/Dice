@@ -42,23 +42,23 @@ export class GameFormComponent implements OnInit {
       if(paramMap.has('id')) {
         this.isEditMode = true;
         this.gameId = paramMap.get('id');
-        console.log(this.gameId);
 
         this.gameService.getGame(this.gameId)
           .subscribe(game => {
             this.game = game;
-            this.form.setValue({
+            this.form.patchValue({
               title: this.game.title,
               introText: this.game.introText,
               description: this.game.description,
-              imagePath: this.game.imagePath,
               minPlayers: this.game.minPlayers,
               maxPlayers: this.game.maxPlayers,
               genre: this.game.genre,
               minAge: this.game.minAge,
               minPlaytime: this.game.minPlaytime,
               maxPlaytime: this.game.maxPlaytime,
+              image: this.game.imagePath
             });
+            this.imagePreview = this.game.imagePath;
           });
       } else {
         this.isEditMode = false;
@@ -74,7 +74,19 @@ export class GameFormComponent implements OnInit {
     }
 
     if(this.isEditMode) {
-      console.log("I'm in edit mode");
+      this.gameService.updateGame(
+        this.game._id,
+        this.form.value.title,
+        this.form.value.introText,
+        this.form.value.description,
+        this.form.value.minPlayers,
+        this.form.value.maxPlayers,
+        this.form.value.genre,
+        this.form.value.minAge,
+        this.form.value.minPlaytime,
+        this.form.value.maxPlaytime,
+        this.form.value.image
+      );
     } else {
       this.gameService.addGame(
         this.form.value.title,
