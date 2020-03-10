@@ -4,9 +4,7 @@ const Game = require('../models/games');
 exports.getGames = (req,res, next) => {
   Game.find()
     .then(fetchedGames => {
-      res.status(200).json({
-        ...fetchedGames
-      });
+      res.status(200).json(fetchedGames);
     })
     .catch(error => {
       res.status(500).json({
