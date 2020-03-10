@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const dbURI = 'mongodb+srv://dice:'+ process.env.MONGO_DB_PW +'@cluster0-e5uxv.mongodb.net/test?retryWrites=true&w=majority';
+const dbURI = 'mongodb+srv://dice:'+ process.env.MONGO_DB_PW +'@cluster0-e5uxv.mongodb.net/Dice?retryWrites=true&w=majority';
 require('./games');
 
 mongoose.connect(dbURI, { useNewUrlParser: true });
