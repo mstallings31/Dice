@@ -9,7 +9,6 @@ exports.createUser = (req, res, next) => {
     .then(result => {
       res.status(200).json({
         message: 'User created',
-        result: result
       });
     })
     .catch(error => {

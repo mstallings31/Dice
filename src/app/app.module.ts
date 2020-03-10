@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { AdvertisingBannerComponent } from './advertising-banner/advertising-banner.component';
@@ -13,6 +13,8 @@ import { GameFormComponent } from './game-form/game-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +26,16 @@ import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
     GameDetailComponent,
     GameFormComponent,
     EllipsisPipe,
-    HtmlLineBreaksPipe
+    HtmlLineBreaksPipe,
+    SignupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

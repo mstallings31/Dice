@@ -3,8 +3,7 @@ import { Game } from './models/game.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { identifierModuleUrl } from '@angular/compiler';
+import { Subject } from 'rxjs';
 
 const BACKEND_URL = environment.apiUrl + 'games/';
 
