@@ -24,8 +24,29 @@ export class GameService {
     return this.http.get<Game>(BACKEND_URL + "games/" + id);
   }
 
-  addGame(newGame: Game) {
-    this.http.post<Game>(BACKEND_URL + "games/", newGame)
+  addGame(title: string,
+          introText: string,
+          description: string,
+          minPlayers: string,
+          maxPlayers: string,
+          genre: string,
+          minAge: string,
+          minPlaytime: string,
+          maxPlaytime: string,
+          image: File) {
+    const gameData = new FormData();
+    gameData.append("title", title);
+    gameData.append("introText", introText);
+    gameData.append("description", description);
+    gameData.append("minPlayers", minPlayers);
+    gameData.append("maxPlayers", maxPlayers);
+    gameData.append("genre", genre);
+    gameData.append("minAge", minAge);
+    gameData.append("minPlaytime", minPlaytime);
+    gameData.append("maxPlaytime", maxPlaytime);
+    gameData.append("image", image, title);
+
+    this.http.post<Game>(BACKEND_URL + "games/", gameData)
       .subscribe(responseData => {
         this.router.navigate(['game', responseData._id]);
       })

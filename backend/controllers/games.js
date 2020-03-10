@@ -36,6 +36,7 @@ exports.getGame = (req, res, next) => {
 
 // POST (create) a new game
 exports.createGame = (req, res, next) => {
+  const url = req.protocol + '://' + req.get("host");
   const newGame = new Game({
     title: req.body.title,
     introText: req.body.introText,
@@ -46,6 +47,7 @@ exports.createGame = (req, res, next) => {
     minAge: req.body.minAge,
     minPlaytime: req.body.minPlaytime,
     maxPlaytime:req.body.maxPlaytime,
+    imagePath: url + "/images/" + req.file.filename
   });
 
   newGame.save()
@@ -61,6 +63,7 @@ exports.createGame = (req, res, next) => {
         minAge: +createdGame.minAge,
         minPlaytime: +createdGame.minPlaytime,
         maxPlaytime: +createdGame.maxPlaytime,
+        imagePath: createdGame.imagePath
       });
     })
     .catch(error => {

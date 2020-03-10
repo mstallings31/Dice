@@ -10,6 +10,7 @@ const gameSchema = mongoose.Schema({
   minAge: { type: Number, required: true },
   minPlaytime: { type: Number, required: true },
   maxPlaytime: { type: Number },
+  imagePath: { type: String, required: true}
 });
 
 module.exports = mongoose.model('Game', gameSchema);

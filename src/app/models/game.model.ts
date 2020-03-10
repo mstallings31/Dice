@@ -3,7 +3,7 @@ export class Game {
   title: string;
   introText: string;
   description: string;
-  //imagePath: string;
+  imagePath: string;
   minPlayers: number;
   maxPlayers: number;
   genre: string;

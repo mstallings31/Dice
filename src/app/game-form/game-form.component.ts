@@ -3,6 +3,7 @@ import { GameService } from '../game.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Game } from '../models/game.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { mimeType } from './mime-type.validator';
 
 @Component({
   selector: 'app-game-form',
@@ -15,6 +16,7 @@ export class GameFormComponent implements OnInit {
   private isLoading: boolean = false;
   game: Game;
   form: FormGroup;
+  imagePreview: string;
 
   constructor(private gameService: GameService,
               private route: ActivatedRoute) { }
@@ -25,7 +27,7 @@ export class GameFormComponent implements OnInit {
       title: new FormControl(null, {validators: [Validators.required]}),
       introText: new FormControl(null, {validators: [Validators.required]}),
       description: new FormControl(null, {validators: [Validators.required]}),
-      // imagePath: new FormControl(null, {validators: [Validators.required]}),
+      image: new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]},),
       minPlayers: new FormControl(null, {validators: [Validators.required]}),
       maxPlayers: new FormControl(null, {validators: [Validators.required]}),
       genre: new FormControl(null, {validators: [Validators.required]}),
@@ -49,7 +51,7 @@ export class GameFormComponent implements OnInit {
               title: this.game.title,
               introText: this.game.introText,
               description: this.game.description,
-              //imagePath: this.game.imagePath,
+              imagePath: this.game.imagePath,
               minPlayers: this.game.minPlayers,
               maxPlayers: this.game.maxPlayers,
               genre: this.game.genre,
@@ -70,23 +72,35 @@ export class GameFormComponent implements OnInit {
       console.log("Invalid form");
       return;
     }
-    this.game = new Game(this.form.value);
+
     if(this.isEditMode) {
       console.log("I'm in edit mode");
     } else {
-      // console.log("Adding a game");
-      // this.gameService.addGame(
-      //   this.form.value.title,
-      //   this.form.value.introText,
-      //   this.form.value.description,
-      //   this.form.value.minPlayers,
-      //   this.form.value.maxPlayers,
-      //   this.form.value.genre,
-      //   this.form.value.minAge,
-      //   this.form.value.minPlaytime,
-      //   this.form.value.maxPlaytime
-      // );
-      this.gameService.addGame(this.game);
+      this.gameService.addGame(
+        this.form.value.title,
+        this.form.value.introText,
+        this.form.value.description,
+        this.form.value.minPlayers,
+        this.form.value.maxPlayers,
+        this.form.value.genre,
+        this.form.value.minAge,
+        this.form.value.minPlaytime,
+        this.form.value.maxPlaytime,
+        this.form.value.image
+      );
     }
+  }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image : file });
+    this.form.get('image').updateValueAndValidity();
+
+    // Get a string fo our image preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 }

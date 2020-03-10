@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const GameController = require("../controllers/games");
+const extractFile = require('../middleware/file');
 
-router
-  .route("")
-  .get(GameController.getGames)
-  .post(GameController.createGame);
+router.get("", GameController.getGames);
+router.post("", extractFile, GameController.createGame);
 
 router
   .route("/:id")
