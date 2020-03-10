@@ -25,7 +25,7 @@ export class GameFormComponent implements OnInit {
       title: new FormControl(null, {validators: [Validators.required]}),
       introText: new FormControl(null, {validators: [Validators.required]}),
       description: new FormControl(null, {validators: [Validators.required]}),
-      imagePath: new FormControl(null, {validators: [Validators.required]}),
+      // imagePath: new FormControl(null, {validators: [Validators.required]}),
       minPlayers: new FormControl(null, {validators: [Validators.required]}),
       maxPlayers: new FormControl(null, {validators: [Validators.required]}),
       genre: new FormControl(null, {validators: [Validators.required]}),
@@ -40,21 +40,24 @@ export class GameFormComponent implements OnInit {
       if(paramMap.has('id')) {
         this.isEditMode = true;
         this.gameId = paramMap.get('id');
-        // Eventually this will be updated to subscribe to observable
-        // from api call
-        this.game = this.gameService.getGame(this.gameId);
-        this.form.setValue({
-          title: this.game.title,
-          introText: this.game.introText,
-          description: this.game.description,
-          imagePath: this.game.imagePath,
-          minPlayers: this.game.minPlayers,
-          maxPlayers: this.game.maxPlayers,
-          genre: this.game.genre,
-          minAge: this.game.minAge,
-          minPlaytime: this.game.minPlaytime,
-          maxPlaytime: this.game.maxPlaytime,
-        });
+        console.log(this.gameId);
+
+        this.gameService.getGame(this.gameId)
+          .subscribe(game => {
+            this.game = game;
+            this.form.setValue({
+              title: this.game.title,
+              introText: this.game.introText,
+              description: this.game.description,
+              //imagePath: this.game.imagePath,
+              minPlayers: this.game.minPlayers,
+              maxPlayers: this.game.maxPlayers,
+              genre: this.game.genre,
+              minAge: this.game.minAge,
+              minPlaytime: this.game.minPlaytime,
+              maxPlaytime: this.game.maxPlaytime,
+            });
+          });
       } else {
         this.isEditMode = false;
         this.gameId = null;
@@ -62,4 +65,28 @@ export class GameFormComponent implements OnInit {
     });
   }
 
+  onSaveGame() {
+    if (!this.form.valid) {
+      console.log("Invalid form");
+      return;
+    }
+    this.game = new Game(this.form.value);
+    if(this.isEditMode) {
+      console.log("I'm in edit mode");
+    } else {
+      // console.log("Adding a game");
+      // this.gameService.addGame(
+      //   this.form.value.title,
+      //   this.form.value.introText,
+      //   this.form.value.description,
+      //   this.form.value.minPlayers,
+      //   this.form.value.maxPlayers,
+      //   this.form.value.genre,
+      //   this.form.value.minAge,
+      //   this.form.value.minPlaytime,
+      //   this.form.value.maxPlaytime
+      // );
+      this.gameService.addGame(this.game);
+    }
+  }
 }

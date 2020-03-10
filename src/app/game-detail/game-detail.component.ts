@@ -19,7 +19,11 @@ export class GameDetailComponent implements OnInit {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        this.game = this.gameService.getGame(this.id);
+        this.gameService.getGame(this.id).subscribe(
+          game => {
+            this.game = game;
+          }
+        );
       }
     );
   }

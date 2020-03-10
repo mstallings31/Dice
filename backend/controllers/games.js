@@ -1,5 +1,6 @@
 const Game = require('../models/games');
 
+// GET all games
 exports.getGames = (req,res, next) => {
   Game.find()
     .then(fetchedGames => {
@@ -15,6 +16,7 @@ exports.getGames = (req,res, next) => {
     })
 };
 
+// GET a single game
 exports.getGame = (req, res, next) => {
   Game.findById(req.params.id)
     .then(game => {
@@ -32,8 +34,9 @@ exports.getGame = (req, res, next) => {
     });
 };
 
+// POST (create) a new game
 exports.createGame = (req, res, next) => {
-  const game = new Game({
+  const newGame = new Game({
     title: req.body.title,
     introText: req.body.introText,
     description: req.body.description,
@@ -45,25 +48,31 @@ exports.createGame = (req, res, next) => {
     maxPlaytime:req.body.maxPlaytime,
   });
 
-  game.save()
+  newGame.save()
     .then(createdGame => {
       res.status(201).json({
-        id: createdGame._id,
+        _id: createdGame._id,
         title: createdGame.title,
         introText: createdGame.introText,
         description: createdGame.description,
-        minPlayers: createdGame.minPlayers,
-        maxPlayers: createdGame.maxPlayers,
+        minPlayers: +createdGame.minPlayers,
+        maxPlayers: +createdGame.maxPlayers,
         genre: createdGame.genre,
-        minAge: createdGame.minAge,
-        minPlaytime: createdGame.minPlaytime,
-        maxPlaytime: createdGame.maxPlaytime,
+        minAge: +createdGame.minAge,
+        minPlaytime: +createdGame.minPlaytime,
+        maxPlaytime: +createdGame.maxPlaytime,
       });
     })
     .catch(error => {
+      console.log("createGame() - error on save(): " + error);
       res.status(500).json({
         message: 'Game creation failed',
         error: error
       });
     });
+};
+
+// PUT (update) an existing game
+exports.updateGame = (req, res, next) => {
+
 };
