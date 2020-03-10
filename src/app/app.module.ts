@@ -10,11 +10,13 @@ import { GameCardComponent } from './game-list/game-card/game-card.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { GameFormComponent } from './game-form/game-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EllipsisPipe } from './ellipsis.pipe';
 import { HtmlLineBreaksPipe } from './html-line-breaks.pipe';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { LoginComponent } from './auth/login/login.component';
     EllipsisPipe,
     HtmlLineBreaksPipe,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { LoginComponent } from './auth/login/login.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

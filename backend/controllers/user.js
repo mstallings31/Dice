@@ -41,7 +41,12 @@ exports.userLogin = (req, res, next) => {
       // At this point, authentication is valid
       // and we return the token
       const token = fetchedUser.generateJwt();
-      res.status(200).json(token);
+      res.status(200).json({
+        token: token,
+        expiresIn: 3600,
+        userId: fetchedUser._id,
+        username: fetchedUser.username
+      });
     })
     .catch(error => {
       return res.status(401).json({
