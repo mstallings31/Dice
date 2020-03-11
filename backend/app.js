@@ -7,8 +7,9 @@ const path = require('path');
 const app = express();
 
 // Routes
-const gameRoutes = require('./routes/games');
+const gamesRoutes = require('./routes/games');
 const userRoutes = require('./routes/user');
+const eventsRoutes = require('./routes/events');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +28,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/games', gameRoutes);
+app.use('/api/games', gamesRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/events', eventsRoutes);
 
 module.exports = app;
