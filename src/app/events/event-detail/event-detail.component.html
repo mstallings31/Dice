@@ -1,1 +1,33 @@
-<p>event-detail works!</p>
+<div class="card-group">
+  <div class="card">
+    <div class="card-header">Attending</div>
+    <ul class="list-group list-group-flush" style="overflow:auto; height: 440px">
+      <li class="list-group-item">Matt</li>
+      <li class="list-group-item">Kristin</li>
+      <li class="list-group-item">Ben</li>
+      <li class="list-group-item">Michael</li>
+      <li class="list-group-item">Karen</li>
+      <li class="list-group-item">Alyssa</li>
+      <li class="list-group-item">Mike</li>
+      <li class="list-group-item">Edmund</li>
+      <li class="list-group-item">Margret</li>
+      <li class="list-group-item">Nick</li>
+      <li class="list-group-item">Jennifer</li>
+    </ul>
+  </div>
+  <div class="card">
+    <img [src]="event.gameId.imagePath" [alt]="event.gameId.title" class="card-img-top">
+    <div class="card-body">
+      <h5 class="card-title">{{ event.gameId.title }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Hosted By: {{ event.hostUsername}}</h6>
+      <p class="card-text">{{ event.eventDetails }}</p>
+      <button class="btn btn-secondary">Join</button>
+    </div>
+    <div class="card-footer text-muted">
+      {{ parsedDate }}
+    </div>
+  </div>
+  <div class="card">
+    <img class="img-fluid rounded" src="http://maps.googleapis.com/maps/api/staticmap?center={{event.coords.coordinates[1]}},{{event.coords.coordinates[0]}}&amp;zoom=16&amp;size=400x535&amp;sensor=false&amp;markers={{event.coords.coordinates[1]}},{{event.coords.coordinates[0]}}&amp;scale=2&amp;key={{ apiKey }}">
+  </div>
+</div>

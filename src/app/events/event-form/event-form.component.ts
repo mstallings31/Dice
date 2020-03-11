@@ -40,7 +40,7 @@ export class EventFormComponent implements OnInit {
         this.eventService.getEvent(this.eventId)
           .subscribe(event => {
             this.event = event;
-            this.gameId = event.gameId;
+            this.gameId = event.gameId._id;
             const dateValue = this.parseDate(new Date(this.event.date));
             this.form.patchValue({
               streetAddress: this.event.streetAddress,

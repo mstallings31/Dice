@@ -9,6 +9,8 @@ exports.getEvents = (req, res, next) => {
 
 exports.getEvent = (req, res, next) => {
   Event.findById(req.params.id)
+    .populate('hostId', ['_id', 'username'])
+    .populate('gameId')
     .then(event => {
       if (event) {
         res.status(200).json(event);

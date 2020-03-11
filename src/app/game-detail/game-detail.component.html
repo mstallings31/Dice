@@ -1,17 +1,15 @@
- <div class="container">
-  <div class="card mb-3">
-    <div class="row no-gutters">
-      <div class="col-md-4">
-        <img class="card-img" [src]="game.imagePath">
-      </div>
-      <div class="col-md-8">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{game.title}}</h5>
-          <p class="card-text" [innerHTML]="game.description | htmlLineBreaks"></p>
-          <a class="btn btn-sm btn-success mt-auto" routerLink="/game/{{game._id}}/new">Create Event</a>
-        </div>
+<div class="card mb-2 p-2">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img class="card-img" [src]="game.imagePath">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body d-flex flex-column">
+        <h3 class="card-title">{{game.title}}</h3>
+        <p class="card-text" [innerHTML]="game.description | htmlLineBreaks"></p>
+        <a class="btn btn-sm btn-success mt-auto" routerLink="/game/{{game._id}}/new">Create Event</a>
       </div>
     </div>
   </div>
- </div>
+</div>
 
