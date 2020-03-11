@@ -16,7 +16,8 @@ const appRoutes: Routes = [
   { path: 'game/:id/edit', component: GameFormComponent, canActivate: [AuthGuard]},
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'event/new', component: EventFormComponent },
+  { path: 'game/:gameId/new', component: EventFormComponent, canActivate: [AuthGuard] },
+  { path: 'event/:eventId/edit', component: EventFormComponent, canActivate: [AuthGuard]},
   { path: 'event/:id', component: EventDetailComponent }
 ];
 @NgModule({

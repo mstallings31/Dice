@@ -19,7 +19,7 @@ export class GameFormComponent implements OnInit {
   imagePreview: string;
 
   constructor(private gameService: GameService,
-              private route: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Create form
@@ -38,7 +38,7 @@ export class GameFormComponent implements OnInit {
 
     // Check parameters for id and determine if we are editing an
     // existing game or creating a new game
-    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if(paramMap.has('id')) {
         this.isEditMode = true;
         this.gameId = paramMap.get('id');
