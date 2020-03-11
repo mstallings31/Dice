@@ -17,6 +17,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HeaderComponent } from './header/header.component';
+import { EventFormComponent } from './events/event-form/event-form.component';
+import { EventDetailComponent } from './events/event-detail/event-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +33,16 @@ import { HeaderComponent } from './header/header.component';
     HtmlLineBreaksPipe,
     SignupComponent,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    EventFormComponent,
+    EventDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
