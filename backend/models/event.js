@@ -14,6 +14,7 @@ const eventSchema = mongoose.Schema({
     type: { type: String },
     coordinates: [Number]
   },
+  attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 });
 
 eventSchema.index({coords: '2dsphere'});

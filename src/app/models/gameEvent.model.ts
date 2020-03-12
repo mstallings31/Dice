@@ -29,5 +29,9 @@ export interface GameEvent {
   coords: {
     type: { type: string },
     coordinates: [number, number]
-  }
+  },
+  attendees: [{
+    _id: string,
+    username: string
+  }]
 };

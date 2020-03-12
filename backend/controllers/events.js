@@ -13,6 +13,7 @@ exports.getEvent = (req, res, next) => {
   Event.findById(req.params.id)
     .populate('hostId', ['_id', 'username'])
     .populate('gameId')
+    .populate('attendees', ['_id', 'username'])
     .then(event => {
       if (event) {
         res.status(200).json(event);
@@ -109,12 +110,13 @@ exports.createEvent = (req, res, next) => {
 
       newEvent.save()
         .then(createdEvent => {
+          // Add the new event to the game it belongs too
             Game.findOneAndUpdate({_id: req.body.gameId }, {$push: {currentEvents: createdEvent._id}})
               .then(gameEventUpdate => {
-                console.log(gameEventUpdate);
+                // Logging for adding new event to a game
               })
               .catch(gameEventError => {
-                console.log("Error updating game from new event");
+                // Logging for errors for adding a new event to a game
               });
           res.status(200).json(createdEvent);
         })
@@ -132,6 +134,16 @@ exports.createEvent = (req, res, next) => {
         error: gError
       })
     }
+  });
+};
+
+exports.joinEvent = (req, res, next) => {
+  Event.updateOne({_id: req.params.id}, {$push: {attendees: req.userData._id}})
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => {
+    res.status(500).json(error);
   });
 };
 

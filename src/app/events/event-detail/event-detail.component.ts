@@ -53,5 +53,11 @@ export class EventDetailComponent implements OnInit {
     return weekDay + ", " + month + " " + day + ", " + year + " at " + timeString;
   }
 
-
+  onJoin() {
+    this.eventService.joinEvent(this.id).subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    });
+  };
 }

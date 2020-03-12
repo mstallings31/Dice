@@ -9,4 +9,5 @@ router.post("", checkAuth, EventsController.createEvent);
 router.get("/:id", EventsController.getEvent);
 router.put("/:id", checkAuth, EventsController.updateEvent);
 
+router.get("/:id/join", checkAuth, EventsController.joinEvent);
 module.exports = router;

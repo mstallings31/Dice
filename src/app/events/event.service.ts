@@ -69,4 +69,8 @@ export class EventService {
     return this.http.get<GameEvent>(BACKEND_URL + id);
   }
 
+  joinEvent(id: string) {
+    return this.http.get<any>(BACKEND_URL + id + '/join');
+  }
+
 }
