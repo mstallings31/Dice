@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 const dbURI = 'mongodb+srv://dice:'+ process.env.MONGO_DB_PW +'@cluster0-e5uxv.mongodb.net/Dice?retryWrites=true&w=majority';
 require('./games');
 

@@ -1,4 +1,4 @@
-<div class="spinnger-grow" *ngIf="isLoading">
+<div class="spinner-grow" *ngIf="isLoading">
   <span class="sr-only">Loading...</span>
 </div>
 <div class="card mb-2 p-2" *ngIf="!isLoading">
@@ -27,7 +27,7 @@
           </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let gameEvent of game.currentEvents">
+          <tr *ngFor="let gameEvent of game.currentEvents" routerLink="/event/{{gameEvent._id}}" style="cursor: pointer">
               <th><a routerLink="/profile/">{{gameEvent.hostUsername}}</a></th>
               <td>{{gameEvent.streetAddress}}</td>
               <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>

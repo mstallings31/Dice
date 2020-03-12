@@ -8,9 +8,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventDetailComponent } from './events/event-detail/event-detail.component';
+import { EventMapComponent } from './event-map/event-map.component';
+import { GameListComponent } from './game-list/game-list.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomepageComponent },
   { path: 'game/new', component: GameFormComponent, canActivate: [AuthGuard] },
   { path: 'game/:id', component: GameDetailComponent },
   { path: 'game/:id/edit', component: GameFormComponent, canActivate: [AuthGuard]},
@@ -18,7 +19,12 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'game/:gameId/new', component: EventFormComponent, canActivate: [AuthGuard] },
   { path: 'event/:eventId/edit', component: EventFormComponent, canActivate: [AuthGuard]},
-  { path: 'event/:id', component: EventDetailComponent }
+  { path: 'event/:id', component: EventDetailComponent },
+  { path: '', component: HomepageComponent, children: [
+    {path: '', component: EventMapComponent },
+    {path: 'nearByEvents', component: EventMapComponent },
+    {path: 'popularGames', component: GameListComponent}
+  ] },
 ];
 @NgModule({
   imports: [

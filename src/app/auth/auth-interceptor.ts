@@ -8,6 +8,11 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    // We can't add this header for requrest to google api
+    if (req.url.startsWith("https://maps.googleapis.com")) {
+      return next.handle(req);
+    }
+
     const authToken = this.authService.getToken();
     // Must clone the request instead of directly modifying it
     const authRequest = req.clone({

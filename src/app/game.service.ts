@@ -77,7 +77,6 @@ export class GameService {
     maxPlaytime: string,
     image: File | string) {
 
-    console.log("Inside game service updateGame()");
     let gameData: Game | FormData;
     if (typeof image === "object") {
       gameData = new FormData();

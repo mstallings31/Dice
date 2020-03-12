@@ -1,0 +1,7 @@
+<ul class="list-group" style="overflow:auto; height: 500px">
+  <app-event-tile
+    *ngFor="let event of events"
+    [event]="event"
+    (click)="onEventSelected(event)">
+  </app-event-tile>
+</ul>

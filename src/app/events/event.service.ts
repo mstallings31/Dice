@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { GoogleGeocodeService } from '../googleGeocode.service';
 import { GameEvent } from '../models/gameEvent.model';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 const BACKEND_URL = environment.apiUrl + 'events/';
 
@@ -11,6 +12,8 @@ const BACKEND_URL = environment.apiUrl + 'events/';
   providedIn: 'root'
 })
 export class EventService {
+  private events: GameEvent[];
+  private eventsUpdated = new Subject<GameEvent[]>();
 
   constructor(private http: HttpClient,
               private googleGeocodeService: GoogleGeocodeService,
@@ -71,6 +74,19 @@ export class EventService {
 
   joinEvent(id: string) {
     return this.http.get<any>(BACKEND_URL + id + '/join');
+  }
+
+  getEvents(lat: number, lng: number) {
+    const url = BACKEND_URL + `?lat=${lat}&lng=${lng}`;
+    return this.http.get<GameEvent[]>(url)
+      .subscribe(events => {
+        this.events = events;
+        this.eventsUpdated.next([...this.events]);
+      });
+  }
+
+  getEventUpdateListener() {
+    return this.eventsUpdated.asObservable();
   }
 
 }

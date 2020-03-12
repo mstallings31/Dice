@@ -6,7 +6,33 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 exports.getEvents = (req, res, next) => {
-  res.status(200).json({message: 'Events setup'});
+  if (!req.query.lng || !req.query.lat) {
+    return res.status(500).json({
+      "message": "lng and lat query parameters are required"
+    });
+  }
+  const lng = parseFloat(req.query.lng);
+  const lat = parseFloat(req.query.lat);
+  // If distance is not provided as a query paramter then use 20km
+  const distance = parseFloat(req.query.distance) || 20000;
+
+  Event.find({
+    coords: {
+      $nearSphere: {
+        $geometry: {
+          type: 'Point',
+          coordinates: [lng, lat]
+        },
+        $maxDistance: distance
+  }}})
+  .populate('gameId')
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => {
+    res.status(500).json(error);
+  });
+
 };
 
 exports.getEvent = (req, res, next) => {

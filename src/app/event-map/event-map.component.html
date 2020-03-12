@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-12">
+      <app-search-bar (newSearch)="newSearch($event)"></app-search-bar>
+  </div>
+</div>
+<div class="d-flex justify-content-center" *ngIf="isFetching">
+  <div class="spinner-grow" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="row" *ngIf="!isFetching">
+  <div class="col-sm-4">
+    <app-event-list
+      *ngIf="events.length > 0"
+      [events]="events"
+      (eventSelected)="onEventSelected($event)"></app-event-list>
+  </div>
+  <div class="col-sm-8">
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="13"
+      #AgmMap>
+      <agm-marker
+          *ngFor="let event of events"
+          [latitude]="event.coords.coordinates[1]"
+          [longitude]="event.coords.coordinates[0]"
+          (markerClick)="onMarkerClick(event)">
+        <agm-info-window [isOpen]="event === selectedEvent">
+            <h5> {{ event.gameId.title }}</h5>
+            <h6>Date: {{ event.date | date }} {{ event.date | date: 'shortTime'}}</h6>
+            <a routerLink="../event/{{event._id}}"><button type="button" class="btn btn-success">View Details</button></a>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+</div>

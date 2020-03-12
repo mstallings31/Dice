@@ -1,2 +1,21 @@
 <app-advertising-banner></app-advertising-banner>
-<app-game-list></app-game-list>
+<div class="row">
+  <div class="col-xs-12">
+  <ul class="nav nav-tabs">
+      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a class="nav-link" routerLink="">Near By Events</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/popularGames">Popular Games</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/allGames">All Games</a>
+      </li>
+      </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12" style="padding-left: 0px">
+    <router-outlet></router-outlet>
+  </div>
+</div>

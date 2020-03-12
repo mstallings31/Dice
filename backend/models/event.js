@@ -12,7 +12,7 @@ const eventSchema = mongoose.Schema({
   eventDetails: { type: String },
   coords: {
     type: { type: String },
-    coordinates: [Number]
+    coordinates: { type: [Number], index: "2dsphere" }
   },
   attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "User"}]
 });

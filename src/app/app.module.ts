@@ -19,6 +19,12 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { HeaderComponent } from './header/header.component';
 import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventDetailComponent } from './events/event-detail/event-detail.component';
+import { EventMapComponent } from './event-map/event-map.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from '../environments/environment';
+import { SearchBarComponent } from './event-map/search-bar/search-bar.component';
+import { EventListComponent } from './event-map/event-list/event-list.component';
+import { EventTileComponent } from './event-map/event-list/event-tile/event-tile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +41,11 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
     LoginComponent,
     HeaderComponent,
     EventFormComponent,
-    EventDetailComponent
+    EventDetailComponent,
+    EventMapComponent,
+    SearchBarComponent,
+    EventListComponent,
+    EventTileComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +53,9 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleAPIKey
+    }),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
