@@ -2,17 +2,38 @@ const Game = require('../models/games');
 
 // GET all games
 exports.getGames = (req,res, next) => {
-  Game.find()
-    .then(fetchedGames => {
-      res.status(200).json(fetchedGames);
+  let query =  Game.find();
+  if (req.query.detail === 'true') {
+    query = query.populate('currentEvents');
+  }
+  query.then(fetchedGames => {
+    res.status(200).json(fetchedGames);
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching games failed',
+      error: error
     })
-    .catch(error => {
-      res.status(500).json({
-        message: 'Fetching games failed',
-        error: error
-      })
-    })
+  })
 };
+
+
+exports.getGamesDetail = (req,res, next) => {
+  let query =  Game.find();
+  if (req.params.detail === 'true') {
+    query = query.populate('currentEvents');
+  }
+  query.then(fetchedGames => {
+    res.status(200).json(fetchedGames);
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: 'Fetching games failed',
+      error: error
+    })
+  })
+};
+
 
 // GET a single game
 exports.getGame = (req, res, next) => {
@@ -79,7 +100,7 @@ exports.updateGame = (req, res, next) => {
     const url = req.protocol + '://' + req.get("host");
     imagePath = url + "/images/" + req.file.filename;
   }
-  const game = new Game({
+  const game = {
     _id: req.body._id,
     title: req.body.title,
     introText: req.body.introText,
@@ -91,7 +112,8 @@ exports.updateGame = (req, res, next) => {
     minPlaytime: req.body.minPlaytime,
     maxPlaytime:req.body.maxPlaytime,
     imagePath: imagePath
-  });
+  };
+
   Game.updateOne({_id: req.params.id}, game)
     .then(result => {
       if(result.n > 0) {
@@ -101,6 +123,7 @@ exports.updateGame = (req, res, next) => {
       }
     })
     .catch(error => {
+      console.log(error);
       res.status(500).json({ message: "Couldn't update post", error: error });
     })
 };
