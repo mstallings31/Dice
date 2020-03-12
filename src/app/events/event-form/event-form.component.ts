@@ -32,33 +32,33 @@ export class EventFormComponent implements OnInit {
 
     // Check parameters for id and determine if we are editing an
     // existing event or creating a new event
-    this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      if(paramMap.has('eventId')) {
-        this.isEditMode = true;
-        this.eventId = paramMap.get('eventId');
+    // this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
+    //   if(paramMap.has('eventId')) {
+    //     this.isEditMode = true;
+    //     this.eventId = paramMap.get('eventId');
 
-        this.eventService.getEvent(this.eventId)
-          .subscribe(event => {
-            this.event = event;
-            this.gameId = event.gameId._id;
-            const dateValue = this.parseDate(new Date(this.event.date));
-            this.form.patchValue({
-              streetAddress: this.event.streetAddress,
-              city: this.event.city,
-              state: this.event.state,
-              zipCode: this.event.zipCode,
-              date: dateValue,
-              eventDetails: this.event.eventDetails
-            });
-          })
-      } else {
-        // We are creating a new event
-        this.isEditMode = false;
-        this.eventId = null;
-        this.gameId = paramMap.get('gameId');
-      }
+    //     this.eventService.getEvent(this.eventId)
+    //       .subscribe(event => {
+    //         this.event = event;
+    //         this.gameId = event.gameId._id;
+    //         const dateValue = this.parseDate(new Date(this.event.date));
+    //         this.form.patchValue({
+    //           streetAddress: this.event.streetAddress,
+    //           city: this.event.city,
+    //           state: this.event.state,
+    //           zipCode: this.event.zipCode,
+    //           date: dateValue,
+    //           eventDetails: this.event.eventDetails
+    //         });
+    //       })
+    //   } else {
+    //     // We are creating a new event
+    //     this.isEditMode = false;
+    //     this.eventId = null;
+    //     this.gameId = paramMap.get('gameId');
+    //   }
 
-    });
+    // });
   }
 
   onSaveEvent() {

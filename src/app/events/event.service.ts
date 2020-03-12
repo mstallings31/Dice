@@ -14,6 +14,8 @@ const BACKEND_URL = environment.apiUrl + 'events/';
 export class EventService {
   private events: GameEvent[];
   private eventsUpdated = new Subject<GameEvent[]>();
+  private event: GameEvent;
+  private eventUpdated = new Subject<GameEvent>();
 
   constructor(private http: HttpClient,
               private googleGeocodeService: GoogleGeocodeService,
@@ -69,11 +71,25 @@ export class EventService {
   }
 
   getEvent(id: string) {
-    return this.http.get<GameEvent>(BACKEND_URL + id);
+    return this.http.get<GameEvent>(BACKEND_URL + id)
+      .subscribe(event => {
+        this.event = event;
+        this.eventUpdated.next(this.event);
+      })
   }
 
   joinEvent(id: string) {
-    return this.http.get<any>(BACKEND_URL + id + '/join');
+    this.http.get<any>(BACKEND_URL + id + '/join')
+      .subscribe(response => {
+        this.getEvent(id);
+      });
+  }
+
+  leaveEvent(id:string) {
+    this.http.get<any>(BACKEND_URL + id + '/leave')
+      .subscribe(response => {
+        this.getEvent(id);
+      });
   }
 
   getEvents(lat: number, lng: number) {
@@ -85,8 +101,12 @@ export class EventService {
       });
   }
 
-  getEventUpdateListener() {
+  getEventsUpdateListener() {
     return this.eventsUpdated.asObservable();
+  }
+
+  getEventUpdateListener() {
+    return this.eventUpdated.asObservable();
   }
 
 }

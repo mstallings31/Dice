@@ -142,4 +142,8 @@ export class AuthService {
       username: username
     }
   }
+
+  getUsername() {
+    return this.username;
+  }
 };

@@ -173,4 +173,14 @@ exports.joinEvent = (req, res, next) => {
   });
 };
 
+exports.leaveEvent = (req, res, next) => {
+  Event.updateOne({_id: req.params.id}, {$pull: {attendees: req.userData._id}})
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => {
+    res.status(500).json(error);
+  });
+};
+
 

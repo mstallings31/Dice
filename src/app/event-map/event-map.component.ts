@@ -33,7 +33,7 @@ export class EventMapComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isFetching = true;
     this.getPosition();
-    this.eventSubscription = this.eventService.getEventUpdateListener()
+    this.eventSubscription = this.eventService.getEventsUpdateListener()
       .subscribe((eventData: GameEvent[]) => {
         this.events = eventData;
         this.isFetching = false;
