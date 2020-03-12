@@ -47,3 +47,6 @@ Thumbs.db
 
 # Enviroment Variables
 .env
+
+# Images
+/background/images

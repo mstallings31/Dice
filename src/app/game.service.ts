@@ -25,7 +25,7 @@ export class GameService {
   getGames() {
     return this.http.get<Game[]>(BACKEND_URL)
       .subscribe(games => {
-        this.games = games;
+        this.games = games.sort((a, b) => (a.currentEvents.length < b.currentEvents.length) ? 1 : -1);
         this.gameUpdated.next([...this.games]);
       });
   }

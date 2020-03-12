@@ -10,6 +10,7 @@ export class Game {
   minAge: number;
   minPlaytime: number;
   maxPlaytime: number;
+  currentEvents: [string]
 
   constructor(init?: Partial<Game>) {
     Object.assign(this, init);
