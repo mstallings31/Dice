@@ -1,4 +1,7 @@
-<div class="card-group">
+<div class="spinnger-grow" *ngIf="isLoading">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="card-group" *ngIf="!isLoading">
   <div class="card">
     <div class="card-header"><h4>Attending</h4></div>
     <ul class="list-group list-group-flush" style="overflow:auto; height: 540px">

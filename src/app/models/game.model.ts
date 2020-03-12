@@ -1,3 +1,5 @@
+import { GameEvent } from './gameEvent.model';
+
 export class Game {
   _id: string;
   title: string;
@@ -10,7 +12,8 @@ export class Game {
   minAge: number;
   minPlaytime: number;
   maxPlaytime: number;
-  currentEvents: [string]
+  currentEvents: [GameEvent]
+
 
   constructor(init?: Partial<Game>) {
     Object.assign(this, init);

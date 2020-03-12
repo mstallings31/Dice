@@ -10,18 +10,21 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class GameDetailComponent implements OnInit {
   id: string;
-  game: Game = new Game();
+  game: Game;
+  isLoading = false;
 
   constructor(private gameService: GameService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
-        this.gameService.getGame(this.id)
+        this.gameService.getGame(this.id, true)
         .subscribe(game => {
             this.game = game;
+            this.isLoading = false;
           }
         );
       }

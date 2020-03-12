@@ -14,10 +14,13 @@ export class EventDetailComponent implements OnInit {
   event: GameEvent;
   parsedDate: string;
   apiKey: string = environment.googleAPIKey;
+  isLoading: boolean = false;
+
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.id = params['id'];
@@ -25,6 +28,7 @@ export class EventDetailComponent implements OnInit {
           .subscribe(returnedEvent => {
             this.event = returnedEvent;
             this.parsedDate = this.parseDate(new Date(returnedEvent.date));
+            this.isLoading = false;
           });
       }
     );

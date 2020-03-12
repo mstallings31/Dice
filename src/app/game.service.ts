@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 const BACKEND_URL = environment.apiUrl + 'games/';
 
@@ -30,8 +31,9 @@ export class GameService {
       });
   }
 
-  getGame(id: string) {
-    return this.http.get<Game>(BACKEND_URL + id);
+  getGame(id: string, details: boolean) {
+    const url = BACKEND_URL + id + (details ? "?details=true" : "");
+    return this.http.get<Game>(url);
   }
 
   addGame(title: string,

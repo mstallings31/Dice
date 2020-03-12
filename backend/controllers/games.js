@@ -2,12 +2,9 @@ const Game = require('../models/games');
 
 // GET all games
 exports.getGames = (req,res, next) => {
-  let query =  Game.find();
-  if (req.query.detail === 'true') {
-    query = query.populate('currentEvents');
-  }
-  query.then(fetchedGames => {
-    res.status(200).json(fetchedGames);
+  Game.find()
+    .then(fetchedGames => {
+      res.status(200).json(fetchedGames);
   })
   .catch(error => {
     res.status(500).json({
@@ -16,29 +13,14 @@ exports.getGames = (req,res, next) => {
     })
   })
 };
-
-
-exports.getGamesDetail = (req,res, next) => {
-  let query =  Game.find();
-  if (req.params.detail === 'true') {
-    query = query.populate('currentEvents');
-  }
-  query.then(fetchedGames => {
-    res.status(200).json(fetchedGames);
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: 'Fetching games failed',
-      error: error
-    })
-  })
-};
-
 
 // GET a single game
 exports.getGame = (req, res, next) => {
-  Game.findById(req.params.id)
-    .then(game => {
+  let query = Game.findById(req.params.id);
+  if (req.query.details === 'true') {
+    query = query.populate('currentEvents');
+  }
+  query.then(game => {
       if(game) {
         res.status(200).json(game);
       } else {

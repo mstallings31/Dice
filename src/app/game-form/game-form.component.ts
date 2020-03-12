@@ -43,7 +43,7 @@ export class GameFormComponent implements OnInit {
         this.isEditMode = true;
         this.gameId = paramMap.get('id');
 
-        this.gameService.getGame(this.gameId)
+        this.gameService.getGame(this.gameId, false)
           .subscribe(game => {
             this.game = game;
             this.form.patchValue({

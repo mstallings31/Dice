@@ -1,4 +1,7 @@
-<div class="card mb-2 p-2">
+<div class="spinnger-grow" *ngIf="isLoading">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="card mb-2 p-2" *ngIf="!isLoading">
   <div class="row no-gutters">
     <div class="col-md-4">
       <img class="card-img" [src]="game.imagePath">
@@ -11,5 +14,27 @@
       </div>
     </div>
   </div>
+</div>
+<div class="row no-gutters" *ngIf="!isLoading">
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th scope="col">User</th>
+              <th scope="col">Location</th>
+              <th scope="col">Date/Time</th>
+              <th scope="col">Extra Info</th>
+              <th scope="col">Register</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let gameEvent of game.currentEvents">
+              <th><a routerLink="/profile/">{{gameEvent.hostUsername}}</a></th>
+              <td>{{gameEvent.streetAddress}}</td>
+              <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>
+              <td>{{gameEvent.eventDetails}}</td>
+              <td> <a routerLink="/event/{{gameEvent._id}}"><button class="btn btn-sm btn-primary">View Details</button></a></td>
+          </tr>
+      </tbody>
+  </table>
 </div>
 
