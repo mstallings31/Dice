@@ -1,4 +1,6 @@
 const Event = require('../models/event');
+const Game = require('../models/games');
+const mongoose = require('mongoose');
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API_KEY
 });
@@ -107,8 +109,14 @@ exports.createEvent = (req, res, next) => {
 
       newEvent.save()
         .then(createdEvent => {
-          // Event creation was sucessful
-          res.status(201).json(createdEvent);
+            Game.findOneAndUpdate({_id: req.body.gameId }, {$push: {currentEvents: createdEvent._id}})
+              .then(gameEventUpdate => {
+                console.log(gameEventUpdate);
+              })
+              .catch(gameEventError => {
+                console.log("Error updating game from new event");
+              });
+          res.status(200).json(createdEvent);
         })
         .catch(error => {
           // Error message when saving event to mongoDB
@@ -116,7 +124,7 @@ exports.createEvent = (req, res, next) => {
             message: 'Event creation failed',
             error: error
           })
-        })
+        });
     } else {
       // There was an error from geolocation
       res.status(500).json({

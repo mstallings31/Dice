@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GoogleGeocodeService } from '../googleGeocode.service';
 import { GameEvent } from '../models/gameEvent.model';
+import { Router } from '@angular/router';
 
 const BACKEND_URL = environment.apiUrl + 'events/';
 
@@ -12,7 +13,8 @@ const BACKEND_URL = environment.apiUrl + 'events/';
 export class EventService {
 
   constructor(private http: HttpClient,
-              private googleGeocodeService: GoogleGeocodeService) {}
+              private googleGeocodeService: GoogleGeocodeService,
+              private router: Router) {}
 
   addEvent(gameId: string,
            streetAddress: string,
@@ -32,9 +34,9 @@ export class EventService {
       eventDetails: eventDetails
     };
 
-    this.http.post(BACKEND_URL, eventData)
+    this.http.post<GameEvent>(BACKEND_URL, eventData)
       .subscribe(responseData => {
-        console.log(responseData);
+        this.router.navigate(['event', responseData._id]);
     });
   }
 

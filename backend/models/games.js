@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require("./event");
 
 const gameSchema = mongoose.Schema({
   title: { type: String, required: true },
@@ -10,7 +11,8 @@ const gameSchema = mongoose.Schema({
   minAge: { type: Number, required: true },
   minPlaytime: { type: Number, required: true },
   maxPlaytime: { type: Number },
-  imagePath: { type: String, required: true}
+  imagePath: { type: String, required: true},
+  currentEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event"}]
 });
 
 module.exports = mongoose.model('Game', gameSchema);
