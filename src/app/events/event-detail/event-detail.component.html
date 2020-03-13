@@ -5,6 +5,7 @@
   <div class="card">
     <div class="card-header"><h4>Attending</h4></div>
     <ul class="list-group list-group-flush" style="overflow:auto; height: 540px">
+      <li class="list-group-item"> {{ event.hostUsername }} (Host)</li>
       <li class="list-group-item" *ngFor="let attendee of event.attendees">{{attendee.username}}</li>
     </ul>
   </div>
