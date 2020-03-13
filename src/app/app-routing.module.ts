@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   { path: 'game/:gameId/new', component: EventFormComponent, canActivate: [AuthGuard] },
   { path: 'event/:eventId/edit', component: EventFormComponent, canActivate: [AuthGuard]},
   { path: 'event/:id', component: EventDetailComponent },
-  { path: 'user', component: UserPageComponent },
+  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
   { path: '', component: HomepageComponent, children: [
     {path: '', component: EventMapComponent },
     {path: 'nearByEvents', component: EventMapComponent },

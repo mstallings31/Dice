@@ -1,4 +1,7 @@
-<div class="row no-gutters mt-2">
+<div class="spinner-grow" *ngIf="isLoading">
+  <span class="sr-only">Loading...</span>
+</div>
+<div class="row no-gutters mt-2" *ngIf="!isLoading">
   <div class="col-3">
     <div class="card">
       <div class="row no-gutters">
@@ -7,7 +10,7 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">Username</h5>
+            <h5 class="card-title">{{ user.username }}</h5>
             <p class="card-text">Edit Account</p>
           </div>
         </div>
@@ -26,10 +29,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th><a routerLink="/profile/">Username</a></th>
-                <td>123 Address</td>
-                <td>1/1/2020 @ 11:00pm</td>
+            <tr *ngFor="let gameEvent of user.events">
+                <th><a routerLink="/profile/">{{gameEvent.hostUsername}}</a></th>
+                <td>{{gameEvent.streetAddress}}</td>
+                <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>
                 <td><button class="btn btn-sm btn-primary">View Details</button></td>
             </tr>
         </tbody>
