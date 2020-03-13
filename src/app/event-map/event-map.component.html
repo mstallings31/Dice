@@ -27,9 +27,15 @@
           [longitude]="event.coords.coordinates[0]"
           (markerClick)="onMarkerClick(event)">
         <agm-info-window [isOpen]="event === selectedEvent">
-            <h5> {{ event.gameId.title }}</h5>
-            <h6>Date: {{ event.date | date }} {{ event.date | date: 'shortTime'}}</h6>
-            <a routerLink="../event/{{event._id}}"><button type="button" class="btn btn-success">View Details</button></a>
+            <div class="card">
+              <div class="card-body mb-0 p-1">
+                <p class="card-title text-center font-weight-bold">{{ event.gameId.title }}</p>
+                <p class="card-subtitle mb-2 text-center text-muted">Date: {{ event.date | date }} {{ event.date | date: 'shortTime'}}</p>
+                <div class="d-flex justify-content-center">
+                  <a routerLink="../event/{{event._id}}"><button type="button" class="btn btn-success btn-sm">View Details</button></a>
+                </div>
+              </div>
+            </div>
         </agm-info-window>
       </agm-marker>
     </agm-map>
