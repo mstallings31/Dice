@@ -55,3 +55,18 @@ exports.userLogin = (req, res, next) => {
       })
     });
 };
+
+exports.userInfo = (req, res, next) => {
+  User.findOne({_id: req.userData._id}, ['-hash', '-salt'])
+  .populate({
+    path: 'events',
+    populate: {path: 'gameId' }
+  })
+  .populate('events.gameId')
+  .then(response => {
+    res.status(200).json(response);
+  })
+  .catch(error => {
+    res.status(500).json(error);
+  })
+};

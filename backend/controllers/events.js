@@ -1,5 +1,7 @@
 const Event = require('../models/event');
 const Game = require('../models/games');
+const User = require('../models/user');
+
 const mongoose = require('mongoose');
 const googleMapsClient = require('@google/maps').createClient({
   key: process.env.GOOGLE_API_KEY
@@ -166,7 +168,13 @@ exports.createEvent = (req, res, next) => {
 exports.joinEvent = (req, res, next) => {
   Event.updateOne({_id: req.params.id}, {$push: {attendees: req.userData._id}})
   .then(response => {
-    res.status(200).json(response);
+    User.updateOne({_id: req.userData._id}, {$push: {events: req.params.id }})
+    .then(userResponse => {
+      res.status(200).json(userResponse);
+    })
+    .catch(userError => {
+      res.status(500).json(userError);
+    })
   })
   .catch(error => {
     res.status(500).json(error);

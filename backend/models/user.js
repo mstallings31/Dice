@@ -8,6 +8,7 @@ const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   hash: String,
   salt: String,
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }]
 });
 
 userSchema.plugin(uniqueValidator);
