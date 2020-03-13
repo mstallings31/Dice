@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventService } from '../event.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { GameEvent } from 'src/app/models/gameEvent.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-event-form',
   templateUrl: './event-form.component.html',
   styleUrls: ['./event-form.component.css']
 })
-export class EventFormComponent implements OnInit {
+export class EventFormComponent implements OnInit, OnDestroy {
   public isEditMode: boolean = false;
   private eventId: string;
   form: FormGroup;
   gameId: string;
   event: GameEvent;
+  eventSubscription: Subscription;
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute) { }
@@ -30,35 +32,32 @@ export class EventFormComponent implements OnInit {
       eventDetails: new FormControl(null, { validators: [Validators.required] }),
     });
 
-    // Check parameters for id and determine if we are editing an
-    // existing event or creating a new event
-    // this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-    //   if(paramMap.has('eventId')) {
-    //     this.isEditMode = true;
-    //     this.eventId = paramMap.get('eventId');
+    this.gameId = this.activatedRoute.snapshot.params['gameId'];
+    this.eventId = this.activatedRoute.snapshot.params['eventId'];
+    if(this.gameId){
+      // This is a new game
+      this.isEditMode = false;
+      this.eventId = null;
+    }  else if (this.eventId) {
+      // We are editing an existing game
+      this.isEditMode = true;
+      this.eventService.getEvent(this.eventId);
+    }
 
-    //     this.eventService.getEvent(this.eventId)
-    //       .subscribe(event => {
-    //         this.event = event;
-    //         this.gameId = event.gameId._id;
-    //         const dateValue = this.parseDate(new Date(this.event.date));
-    //         this.form.patchValue({
-    //           streetAddress: this.event.streetAddress,
-    //           city: this.event.city,
-    //           state: this.event.state,
-    //           zipCode: this.event.zipCode,
-    //           date: dateValue,
-    //           eventDetails: this.event.eventDetails
-    //         });
-    //       })
-    //   } else {
-    //     // We are creating a new event
-    //     this.isEditMode = false;
-    //     this.eventId = null;
-    //     this.gameId = paramMap.get('gameId');
-    //   }
-
-    // });
+    this.eventSubscription = this.eventService.getEventUpdateListener()
+      .subscribe(returnedEvent => {
+        this.event = returnedEvent;
+        this.gameId = returnedEvent.gameId._id;
+        const dateValue = this.parseDate(new Date(this.event.date));
+        this.form.patchValue({
+          streetAddress: this.event.streetAddress,
+          city: this.event.city,
+          state: this.event.state,
+          zipCode: this.event.zipCode,
+          date: dateValue,
+          eventDetails: this.event.eventDetails
+        });
+      });
   }
 
   onSaveEvent() {
@@ -99,5 +98,9 @@ export class EventFormComponent implements OnInit {
     const hour = ( date.getHours() < 10 ) ? '0' + date.getHours() : date.getHours();
     const minutes = ( date.getMinutes() < 10 ) ? '0' + date.getMinutes() : date.getMinutes();
     return year + "-" + month + "-" + day + "T" + hour + ":" + minutes;
+  }
+
+  ngOnDestroy() {
+    this.eventSubscription.unsubscribe();
   }
 }

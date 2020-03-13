@@ -66,7 +66,7 @@ export class EventService {
 
       this.http.put(BACKEND_URL + eventId, eventData)
         .subscribe(responseData => {
-          console.log(responseData);
+          this.router.navigate(['event', eventId])
       });
   }
 
