@@ -67,7 +67,7 @@ exports.updateEvent = (req, res, next) => {
   },
   function(gError, response) {
     if(!gError) {
-      const newEvent = new Event({
+      const newEvent = {
         _id: req.body.eventId,
         hostId: req.userData._id,
         hostUsername: req.userData.username,
@@ -84,7 +84,7 @@ exports.updateEvent = (req, res, next) => {
             response.json.results[0].geometry.location.lng,
             response.json.results[0].geometry.location.lat]
         }
-      });
+      };
 
       Event.updateOne({_id: req.params.id }, newEvent)
         .then(updatedEvent => {

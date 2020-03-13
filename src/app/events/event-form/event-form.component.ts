@@ -48,7 +48,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
       .subscribe(returnedEvent => {
         this.event = returnedEvent;
         this.gameId = returnedEvent.gameId._id;
-        const dateValue = this.parseDate(new Date(this.event.date));
+        const dateValue = this.parseDate(new Date(returnedEvent.date));
         this.form.patchValue({
           streetAddress: this.event.streetAddress,
           city: this.event.city,
@@ -92,12 +92,13 @@ export class EventFormComponent implements OnInit, OnDestroy {
   }
 
   parseDate(date: Date) {
-    const year = date.getFullYear();
-    const month =  ( date.getMonth() < 10) ? '0' + date.getMonth() : date.getMonth();
-    const day = ( date.getDay() < 10 ) ? '0' + date.getDay() : date.getDay();
-    const hour = ( date.getHours() < 10 ) ? '0' + date.getHours() : date.getHours();
-    const minutes = ( date.getMinutes() < 10 ) ? '0' + date.getMinutes() : date.getMinutes();
-    return year + "-" + month + "-" + day + "T" + hour + ":" + minutes;
+    let localDate = date.toLocaleDateString().split('/');
+    let parseDate = localDate[2] + '-' +
+      (+localDate[0] < 10 ? '0' + localDate[0] : localDate[0]) + '-' +
+      (+localDate[1] < 10 ? '0' + localDate[1] : localDate[1]) + 'T';
+    let localTime = date.toLocaleTimeString().split(":");
+    let parseTime = (+localTime[0] < 10 ? '0' + localTime[0] : localTime[0]) + ":" + localTime[1];
+    return parseDate + parseTime;
   }
 
   ngOnDestroy() {
