@@ -3,11 +3,13 @@
   <div class="card-body">
       <h5 class="card-title text-center">{{ game.title }}</h5>
       <p class="card-text">{{ game.introText | ellipsis: 100 }}</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <span class="badge badge-pill badge-secondary">{{ game.genre }}</span>
-        </div>
-        <small class="text-muted">{{game.currentEvents.length}} events</small>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <span class="badge badge-pill badge-secondary">{{ game.genre }}</span>
       </div>
+      <small class="text-muted">{{game.currentEvents.length}} events</small>
+    </div>
   </div>
 </div>

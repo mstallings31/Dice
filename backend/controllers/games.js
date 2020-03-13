@@ -3,6 +3,8 @@ const Game = require('../models/games');
 // GET all games
 exports.getGames = (req,res, next) => {
   Game.find()
+    .sort('-eventCount')
+    .limit(2)
     .then(fetchedGames => {
       res.status(200).json(fetchedGames);
   })

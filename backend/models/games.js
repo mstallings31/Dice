@@ -12,7 +12,8 @@ const gameSchema = mongoose.Schema({
   minPlaytime: { type: Number, required: true },
   maxPlaytime: { type: Number },
   imagePath: { type: String, required: true},
-  currentEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event"}]
+  currentEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event"}],
+  eventCount: { type: Number, index: true }
 });
 
 module.exports = mongoose.model('Game', gameSchema);

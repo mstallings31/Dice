@@ -139,7 +139,9 @@ exports.createEvent = (req, res, next) => {
       newEvent.save()
         .then(createdEvent => {
           // Add the new event to the game it belongs too
-            Game.findOneAndUpdate({_id: req.body.gameId }, {$push: {currentEvents: createdEvent._id}})
+            Game.findOneAndUpdate({_id: req.body.gameId }, {
+              $push: {currentEvents: createdEvent._id},
+              $inc: {eventCount: 1}})
               .then(gameEventUpdate => {
                 // Logging for adding new event to a game
               })
