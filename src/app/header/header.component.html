@@ -12,9 +12,12 @@
           <span class="navbar-toggler-icon"></span>
       </button><div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-              <li class="nav-item" routerLinkActive="active"><a class="nav-link" routerLink="/">Home</a></li>
+              <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a class="nav-link" routerLink="/">Home</a></li>
           </ul>
           <ul class="navbar-nav justify-content-end">
+            <li class="nav-item" routerLinkActive="active">
+              <a *ngIf="isUserAuthenticated" routerLink="user" class="nav-link">Profile</a>
+            </li>
               <li class="nav-item" routerLinkActive="active">
                   <a *ngIf="!isUserAuthenticated" routerLink="login" class="nav-link">Login</a>
                   <a *ngIf="isUserAuthenticated" (click)="onLogout()" class="nav-link">Logout</a>
