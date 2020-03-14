@@ -7,5 +7,6 @@ router.post("/signup", UserController.createUser);
 router.post("/login", UserController.userLogin);
 
 router.get("", checkAuth, UserController.userInfo);
+router.get("/:userId", UserController.userInfo);
 
 module.exports = router;

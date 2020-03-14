@@ -11,6 +11,7 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
 import { EventMapComponent } from './event-map/event-map.component';
 import { GameListComponent } from './game-list/game-list.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 const appRoutes: Routes = [
   { path: 'game/new', component: GameFormComponent, canActivate: [AuthGuard] },
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'event/:eventId/edit', component: EventFormComponent, canActivate: [AuthGuard]},
   { path: 'event/:id', component: EventDetailComponent },
   { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfilePageComponent },
   { path: '', component: HomepageComponent, children: [
     {path: '', component: EventMapComponent },
     {path: 'nearByEvents', component: EventMapComponent },

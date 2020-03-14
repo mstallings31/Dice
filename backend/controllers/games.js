@@ -4,7 +4,7 @@ const Game = require('../models/games');
 exports.getGames = (req,res, next) => {
   Game.find()
     .sort('-eventCount')
-    .limit(2)
+    .limit(9)
     .then(fetchedGames => {
       res.status(200).json(fetchedGames);
   })

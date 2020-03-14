@@ -26,6 +26,7 @@ import { SearchBarComponent } from './event-map/search-bar/search-bar.component'
 import { EventListComponent } from './event-map/event-list/event-list.component';
 import { EventTileComponent } from './event-map/event-list/event-tile/event-tile.component';
 import { UserPageComponent } from './user-page/user-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { UserPageComponent } from './user-page/user-page.component';
     EventListComponent,
     EventTileComponent,
     UserPageComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

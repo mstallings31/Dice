@@ -144,7 +144,12 @@ exports.createEvent = (req, res, next) => {
               $inc: {eventCount: 1}})
               .then(gameEventUpdate => {
                 // Logging for adding new event to a game
-              })
+                User.updateOne({_id: req.userData._id},
+                  {$push: { events: createdEvent._id }})
+                  .then(userResponse => {
+                    // Logging for user getting new event
+                  })
+                })
               .catch(gameEventError => {
                 // Logging for errors for adding a new event to a game
               });

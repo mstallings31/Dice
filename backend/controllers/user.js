@@ -57,12 +57,12 @@ exports.userLogin = (req, res, next) => {
 };
 
 exports.userInfo = (req, res, next) => {
-  User.findOne({_id: req.userData._id}, ['-hash', '-salt'])
+  const userId = req.params.userId ? req.params.userId : req.userData._id;
+  User.findOne({_id: userId}, ['-hash', '-salt'])
   .populate({
     path: 'events',
     populate: {path: 'gameId' }
   })
-  .populate('events.gameId')
   .then(response => {
     res.status(200).json(response);
   })
