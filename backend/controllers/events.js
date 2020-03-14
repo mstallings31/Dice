@@ -173,15 +173,19 @@ exports.createEvent = (req, res, next) => {
 };
 
 exports.joinEvent = (req, res, next) => {
-  Event.updateOne({_id: req.params.id}, {$push: {attendees: req.userData._id}})
+  Event.updateOne({ _id: req.params.id, hostId: {$ne: req.userData._id }}, {$push: {attendees: req.userData._id}})
   .then(response => {
-    User.updateOne({_id: req.userData._id}, {$push: {events: req.params.id }})
-    .then(userResponse => {
-      res.status(200).json(userResponse);
-    })
-    .catch(userError => {
-      res.status(500).json(userError);
-    })
+    if (response.n !== 0) {
+      User.updateOne({_id: req.userData._id}, {$push: {events: req.params.id }})
+      .then(userResponse => {
+        res.status(200).json(userResponse);
+      })
+      .catch(userError => {
+        res.status(500).json(userError);
+      })
+    } else {
+      res.status(200).json(response);
+    }
   })
   .catch(error => {
     res.status(500).json(error);
@@ -189,12 +193,16 @@ exports.joinEvent = (req, res, next) => {
 };
 
 exports.leaveEvent = (req, res, next) => {
-  Event.updateOne({_id: req.params.id}, {$pull: {attendees: req.userData._id}})
+  Event.updateOne({_id: req.params.id, hostId: {$ne: req.userData._id }}, {$pull: {attendees: req.userData._id}})
   .then(eventReponse => {
-    User.updateOne({_id: req.userData._id}, {$pull: {events: req.params.id}})
-    .then(userResponse => {
-      res.status(200).json(userResponse);
+    if (eventReponse.n !== 0) {
+      User.updateOne({_id: req.userData._id}, {$pull: {events: req.params.id}})
+        .then(userResponse => {
+        res.status(200).json(userResponse);
     })
+  } else {
+    res.status(200).json(eventResponse);
+  }
   })
   .catch(error => {
     res.status(500).json(error);
