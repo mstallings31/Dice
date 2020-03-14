@@ -20,6 +20,7 @@
       [latitude]="lat"
       [longitude]="lng"
       [zoom]="13"
+      (mapClick)="onMapClick($event)"
       #AgmMap>
       <agm-marker
           *ngFor="let event of events"

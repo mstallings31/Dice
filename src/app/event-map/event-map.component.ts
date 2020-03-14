@@ -7,8 +7,8 @@ import { Subscription } from 'rxjs';
 
 interface Coordinates {
   coords: {
-    latitude: number,
-    longitude: number
+    lat: number,
+    lng: number
   }
 };
 
@@ -48,20 +48,23 @@ export class EventMapComponent implements OnInit, OnDestroy {
       this.noGeo.bind(this));
   }
 
-  private getEvents(position: Coordinates): void {
-    this.lat = position.coords.latitude;
-    this.lng = position.coords.longitude;
+  private getEvents(position: any): void {
+    // The browser navigator returns an object with "latitude" "longitude"
+    // Google returns the same thing as lat/lng.  To avoid an additional
+    // function call and overhead, assign the value that isn't null
+    this.lat = position.coords.lat || position.coords.latitude;
+    this.lng = position.coords.lng || position.coords.longitude;
     this.eventService.getEvents(this.lat, this.lng);
   }
 
   private showError(error: any): void {
-    this.getEvents({coords: {latitude: this.lat, longitude: this.lng}});
+    this.getEvents({coords: {lat: this.lat, lng: this.lng}});
     console.log("Error getting geo...");
   }
 
   private noGeo(): void {
     console.log("NO GEO GIVEN");
-    this.getEvents({coords: {latitude: this.lat, longitude: this.lng}});
+    this.getEvents({coords: {lat: this.lat, lng: this.lng}});
   }
 
   newSearch(address: string) {
@@ -80,6 +83,10 @@ export class EventMapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventSubscription.unsubscribe();
+  }
+
+  onMapClick(newPosition: Coordinates) {
+    this.getEvents(newPosition);
   }
 
 }

@@ -29,8 +29,8 @@ export class GoogleGeocodeService {
       .get<ResponseData>(url)
       .pipe(map((returnedData) => {
         const coordinate = {
-          latitude: returnedData.results[0].geometry.location.lat,
-          longitude: returnedData.results[0].geometry.location.lng
+          lat: returnedData.results[0].geometry.location.lat,
+          lng: returnedData.results[0].geometry.location.lng
         };
         return coordinate;
       }));
