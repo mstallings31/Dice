@@ -28,7 +28,7 @@
       </thead>
       <tbody>
           <tr *ngFor="let gameEvent of game.currentEvents" routerLink="/event/{{gameEvent._id}}" style="cursor: pointer">
-              <th><a routerLink="/profile/">{{gameEvent.hostUsername}}</a></th>
+              <th><a routerLink="/profile/{{gameEvent.hostId}}">{{gameEvent.hostUsername}}</a></th>
               <td>{{gameEvent.streetAddress}}</td>
               <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>
               <td>{{gameEvent.eventDetails}}</td>

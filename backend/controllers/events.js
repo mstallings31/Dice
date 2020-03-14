@@ -216,7 +216,9 @@ exports.deleteEvent = (req, res, next) => {
       .then(updatedUsers => {
         console.log(updatedUsers);
       })
-      Game.updateOne({_id: deleteResponse.gameId}, {$pull: {currentEvents: req.params.id}})
+      Game.updateOne({_id: deleteResponse.gameId}, {
+        $pull: {currentEvents: req.params.id},
+        $inc: {eventCount: -1}})
       .then(gameResponse => {
         console.log(gameResponse);
       })

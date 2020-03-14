@@ -10,6 +10,7 @@
 </div>
 <div class="row" *ngIf="!isFetching">
   <div class="col-sm-4">
+    <h5 class="text-center" *ngIf="events.length === 0">No games found nearby.</h5>
     <app-event-list
       *ngIf="events.length > 0"
       [events]="events"
