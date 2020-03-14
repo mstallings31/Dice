@@ -11,4 +11,5 @@ router.put("/:id", checkAuth, EventsController.updateEvent);
 
 router.get("/:id/join", checkAuth, EventsController.joinEvent);
 router.get("/:id/leave", checkAuth, EventsController.leaveEvent);
+router.delete("/:id", checkAuth, EventsController.deleteEvent);
 module.exports = router;

@@ -209,4 +209,22 @@ exports.leaveEvent = (req, res, next) => {
   });
 };
 
+exports.deleteEvent = (req, res, next) => {
+  Event.findOneAndDelete({_id: req.params.id, hostId: req.userData._id})
+    .then(deleteResponse => {
+      User.updateMany({_id: {$in: [req.userData._id, ...(deleteResponse.attendees)]}}, {$pull: {events: req.params.id}})
+      .then(updatedUsers => {
+        console.log(updatedUsers);
+      })
+      Game.updateOne({_id: deleteResponse.gameId}, {$pull: {currentEvents: req.params.id}})
+      .then(gameResponse => {
+        console.log(gameResponse);
+      })
+      res.status(200).json(deleteResponse);
+    })
+    .catch(deleteError => {
+      res.status(500).json(deleteError);
+    })
+}
+
 
