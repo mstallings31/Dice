@@ -4,6 +4,7 @@ import { AuthData } from '../models/auth-data.model';
 import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { HistoryService } from '../history.service';
 
 const BACKEND_URL = environment.apiUrl + 'user/';
 
@@ -19,7 +20,8 @@ export class AuthService {
   private username: string;
 
   constructor(private http: HttpClient,
-              private router: Router) {}
+              private router: Router,
+              private historyService: HistoryService) {}
 
   getAuthStatusListener() {
     // This is done so that other mthods cannot emit events
@@ -34,7 +36,7 @@ export class AuthService {
     };
     this.http.post(BACKEND_URL + "signup", authData)
       .subscribe(response => {
-        console.log(response);
+        this.router.navigate([this.historyService.getLastNonLoginUrl()]);
       },
       error => {
         this.authStatusListener.next(false);
@@ -63,7 +65,7 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           this.saveAuthData(token, expirationDate, this.userId, this.username);
-          this.router.navigate(['/']);
+          this.router.navigate([this.historyService.getLastNonLoginUrl()]);
         }
       }, error => {
         this.authStatusListener.next(false);
