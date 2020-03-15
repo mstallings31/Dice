@@ -34,14 +34,25 @@ export class AuthService {
       password: password,
       username: username
     };
-    this.http.post(BACKEND_URL + "signup", authData)
-      .subscribe(response => {
-        this.router.navigate([this.historyService.getLastNonLoginUrl()]);
-      },
-      error => {
-        this.authStatusListener.next(false);
-        this.router.navigate(['/auth/signup']);
-      });
+    this.http.post<{token: string, expiresIn: number, userId: string, username: string}>(BACKEND_URL + "signup", authData)
+    .subscribe(response => {
+      const token = response.token;
+      this.token = response.token;
+      if(token) {
+        const expiresInDuration = response.expiresIn;
+        this.setAuthTimer(expiresInDuration);
+        this.isAuthenticated = true;
+        this.userId = response.userId;
+        this.username = response.username;
+        this.authStatusListener.next(true);
+        const now = new Date();
+        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate, this.userId, this.username);
+        this.router.navigate(['/user']);
+      }
+    }, error => {
+      this.authStatusListener.next(false);
+    });
   }
 
   login(email: string, password: string, username: string) {

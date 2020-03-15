@@ -5,13 +5,13 @@
   <div class="col-3">
     <div class="card">
       <div class="row no-gutters">
-        <div class="col-md-4">
-          <img class="card-img mt-3 ml-2" src="http://localhost:3000/images/tiny-epic-quest-1583984621919.jpg">
+        <div class="col-md-6">
+          <img class="card-img m-2" [src]="user.imagePath">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
           <div class="card-body">
             <h5 class="card-title">{{ user.username }}</h5>
-            <p class="card-text">Edit Account</p>
+            <a routerLink='/user/edit'><p class="card-text">Edit Account</p></a>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let gameEvent of user.events">
-                <th><a routerLink="/profile/">{{gameEvent.hostUsername}}</a></th>
+                <th><a routerLink="/profile/{{gameEvent.hostId}}">{{gameEvent.hostUsername}}</a></th>
                 <td>{{gameEvent.streetAddress}}</td>
                 <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>
                 <td><a routerLink="/event/{{gameEvent._id}}"><button class="btn btn-sm btn-primary">View Details</button></a></td>

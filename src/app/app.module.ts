@@ -30,6 +30,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ReadMoreComponent } from './game-detail/read-more/read-more.component';
 import { DateIconComponent } from './events/event-detail/date-icon/date-icon.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { UserFormComponent } from './user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ProfilePageComponent,
     ReadMoreComponent,
     DateIconComponent,
+    UserFormComponent,
   ],
   imports: [
     BrowserModule,
