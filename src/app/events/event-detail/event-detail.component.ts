@@ -20,6 +20,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   eventSubscription: Subscription;
   isAttending: boolean = false;
   username: string;
+  isHost = false;
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute,
@@ -33,6 +34,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     this.eventSubscription = this.eventService.getEventUpdateListener()
       .subscribe(returnedEvent => {
         this.event = returnedEvent;
+        this.isHost = this.username === this.event.hostUsername;
         this.parsedDate = this.parseDate(new Date(returnedEvent.date));
         this.isLoading = false;
         this.isAttending = this.event.attendees.findIndex(x => x.username === this.username) !== -1;
@@ -64,6 +66,10 @@ export class EventDetailComponent implements OnInit, OnDestroy {
 
   onLeave() {
     this.eventService.leaveEvent(this.id);
+  }
+
+  onDelete() {
+    this.eventService.deleteEvent(this.id);
   }
 
   ngOnDestroy() {

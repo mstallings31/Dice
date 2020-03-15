@@ -101,6 +101,17 @@ export class EventService {
       });
   }
 
+  deleteEvent(id: string) {
+    return this.http.delete<any>(BACKEND_URL + id)
+    .toPromise()
+    .then(response => {
+      this.router.navigate(["/"]);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
   getEventsUpdateListener() {
     return this.eventsUpdated.asObservable();
   }
