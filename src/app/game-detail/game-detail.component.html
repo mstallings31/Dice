@@ -9,8 +9,8 @@
     <div class="col-md-8">
       <div class="card-body d-flex flex-column">
         <h3 class="card-title">{{game.title}}</h3>
-        <p class="card-text" [innerHTML]="game.description | htmlLineBreaks"></p>
-        <a class="btn btn-sm btn-success mt-auto" routerLink="/game/{{game._id}}/new">Create Event</a>
+        <app-read-more [content]="game.description"></app-read-more>
+        <a class="btn btn-sm btn-success mt-3" routerLink="/game/{{game._id}}/new">Create Event</a>
       </div>
     </div>
   </div>
