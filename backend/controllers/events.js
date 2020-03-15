@@ -209,6 +209,33 @@ exports.leaveEvent = (req, res, next) => {
   });
 };
 
+exports.removeUserFromEvent = (req, res, next) => {
+  Event.updateOne({
+      _id: req.params.id,
+      hostId: req.userData._id,
+      attendees: req.params.userId
+    },
+    { $pull: { attendees: req.params.userId}})
+    .then(response => {
+      User.updateOne({_id: req.params.userId}, {$pull: {events: req.params.id}})
+      .then(userResopnse => {
+        // logging for user updated
+        res.status(200).json({
+          message: 'User removed from event'
+        })
+      })
+      .catch(userError => {
+        // logging for errors when user was updated
+        res.status(500).json({
+          error: userError
+        })
+      })
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    })
+};
+
 exports.deleteEvent = (req, res, next) => {
   Event.findOneAndDelete({_id: req.params.id, hostId: req.userData._id})
     .then(deleteResponse => {

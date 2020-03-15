@@ -29,6 +29,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ReadMoreComponent } from './game-detail/read-more/read-more.component';
 import { DateIconComponent } from './events/event-detail/date-icon/date-icon.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { DateIconComponent } from './events/event-detail/date-icon/date-icon.com
     AgmCoreModule.forRoot({
       apiKey: environment.googleAPIKey
     }),
+    FontAwesomeModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]

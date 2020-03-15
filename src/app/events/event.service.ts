@@ -92,6 +92,13 @@ export class EventService {
       });
   }
 
+  removeUserFromEvent(eventId: string, userId: string) {
+    this.http.delete<any>(BACKEND_URL + eventId + '/' + userId)
+      .subscribe(response => {
+        this.getEvent(eventId);
+      });
+  }
+
   getEvents(lat: number, lng: number) {
     const url = BACKEND_URL + `?lat=${lat}&lng=${lng}`;
     return this.http.get<GameEvent[]>(url)

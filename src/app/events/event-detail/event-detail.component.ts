@@ -5,6 +5,7 @@ import { EventService } from '../event.service';
 import { environment } from '../../../environments/environment';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-event-detail',
@@ -21,6 +22,7 @@ export class EventDetailComponent implements OnInit, OnDestroy {
   isAttending: boolean = false;
   username: string;
   isHost = false;
+  faMinusSquare = faMinusSquare;
 
   constructor(private eventService: EventService,
               private activatedRoute: ActivatedRoute,
@@ -70,6 +72,10 @@ export class EventDetailComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.eventService.deleteEvent(this.id);
+  }
+
+  onRemoveUser(userId: string) {
+    this.eventService.removeUserFromEvent(this.id, userId);
   }
 
   ngOnDestroy() {
