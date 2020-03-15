@@ -1,0 +1,16 @@
+.month {
+  color: #dc3545;
+  font-weight: 300;
+  font-size: 1.50em;
+  text-align: center;
+
+}
+
+.day {
+  font-weight: 300;
+  font-size: 2.5em;
+  text-align: center;
+  line-height: 0.5em;
+}
+
+

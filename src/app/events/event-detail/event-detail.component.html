@@ -12,8 +12,15 @@
   <div class="card">
     <img [src]="event.gameId.imagePath" [alt]="event.gameId.title" class="card-img-top">
     <div class="card-body">
-      <h5 class="card-title">{{ event.gameId.title }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Hosted By: {{ event.hostUsername}}</h6>
+      <div class="row">
+        <div class="col-3">
+          <app-date-icon [date]="event.date"></app-date-icon>
+        </div>
+        <div class="col-9">
+          <h5 class="card-title">{{ event.gameId.title }}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Hosted By: {{ event.hostUsername}}</h6>
+        </div>
+      </div>
       <p class="card-text">{{ event.eventDetails }}</p>
       <button *ngIf="isHost" class="btn btn-danger" (click)="onDelete()">Delete Event</button>
       <button *ngIf="!isHost && !isAttending" class="btn btn-secondary" (click)="onJoin()">Join Event</button>

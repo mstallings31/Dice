@@ -28,6 +28,7 @@ import { EventTileComponent } from './event-map/event-list/event-tile/event-tile
 import { UserPageComponent } from './user-page/user-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { ReadMoreComponent } from './game-detail/read-more/read-more.component';
+import { DateIconComponent } from './events/event-detail/date-icon/date-icon.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ReadMoreComponent } from './game-detail/read-more/read-more.component';
     UserPageComponent,
     ProfilePageComponent,
     ReadMoreComponent,
+    DateIconComponent,
   ],
   imports: [
     BrowserModule,
