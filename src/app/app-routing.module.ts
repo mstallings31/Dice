@@ -13,6 +13,7 @@ import { GameListComponent } from './game-list/game-list.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { GameSearchComponent } from './game-search/game-search.component';
 
 const appRoutes: Routes = [
   { path: 'game/new', component: GameFormComponent, canActivate: [AuthGuard] },
@@ -29,7 +30,8 @@ const appRoutes: Routes = [
   { path: '', component: HomepageComponent, children: [
     {path: '', component: EventMapComponent },
     {path: 'nearByEvents', component: EventMapComponent },
-    {path: 'popularGames', component: GameListComponent}
+    {path: 'popularGames', component: GameListComponent},
+    {path: 'allGames', component: GameSearchComponent}
   ] },
 ];
 @NgModule({

@@ -3,7 +3,7 @@ import { Game } from './models/game.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 const BACKEND_URL = environment.apiUrl + 'games/';
@@ -14,6 +14,7 @@ const BACKEND_URL = environment.apiUrl + 'games/';
 export class GameService {
   private games: Game[] = [];
   private gameUpdated = new Subject<Game[]>();
+  private gameTitles: Game[] = [];
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -30,6 +31,11 @@ export class GameService {
         this.gameUpdated.next([...this.games]);
       });
   }
+
+  getGameTitles(): Observable<Game[]> {
+    return this.http.get<Game[]>(BACKEND_URL + 'titles');
+  }
+
 
   getGame(id: string, details: boolean) {
     const url = BACKEND_URL + id + (details ? "?details=true" : "");

@@ -16,6 +16,14 @@ exports.getGames = (req,res, next) => {
   })
 };
 
+exports.getGameTitles = (req, res, next) => {
+  const _GameTitleProjection = 'title';
+  Game.find({}, _GameTitleProjection)
+  .then(games => {
+    res.status(200).json(games);
+  })
+}
+
 // GET a single game
 exports.getGame = (req, res, next) => {
   let query = Game.findById(req.params.id);

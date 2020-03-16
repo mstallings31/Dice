@@ -4,16 +4,10 @@
 <div class="row no-gutters mt-2" *ngIf="!isLoading">
   <div class="col-3">
     <div class="card">
-      <div class="row no-gutters">
-        <div class="col-md-6">
-          <img class="card-img m-2" [src]="user.imagePath">
-        </div>
-        <div class="col-md-6">
-          <div class="card-body">
-            <h5 class="card-title">{{ user.username }}</h5>
-            <a routerLink='/user/edit'><p class="card-text">Edit Account</p></a>
-          </div>
-        </div>
+      <img class="card-img-top" [src]="user.imagePath">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{ user.username }}</h5>
+        <a routerLink='/user/edit'><p class="card-text text-center">Edit Account</p></a>
       </div>
     </div>
   </div>

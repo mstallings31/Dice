@@ -31,6 +31,7 @@ import { ReadMoreComponent } from './game-detail/read-more/read-more.component';
 import { DateIconComponent } from './events/event-detail/date-icon/date-icon.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserFormComponent } from './user-form/user-form.component';
+import { GameSearchComponent } from './game-search/game-search.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UserFormComponent } from './user-form/user-form.component';
     ReadMoreComponent,
     DateIconComponent,
     UserFormComponent,
+    GameSearchComponent,
   ],
   imports: [
     BrowserModule,

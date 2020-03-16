@@ -4,7 +4,7 @@
 <div class="row no-gutters mt-2" *ngIf="!isLoading">
   <div class="col-3">
     <div class="card">
-      <img class="card-img-top" src="http://localhost:3000/images/tiny-epic-quest-1583984621919.jpg">
+      <img class="card-img-top" [src]="user.imagePath">
       <div class="card-body">
         <h5 class="card-title text-center">{{ user.username }}</h5>
       </div>

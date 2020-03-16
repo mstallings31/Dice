@@ -19,6 +19,7 @@ exports.getEvents = (req, res, next) => {
   const distance = parseFloat(req.query.distance) || 20000;
 
   Event.find({
+    date: { $gte: new Date() },
     coords: {
       $nearSphere: {
         $geometry: {
@@ -36,7 +37,6 @@ exports.getEvents = (req, res, next) => {
   });
 
 };
-
 exports.getEvent = (req, res, next) => {
   Event.findById(req.params.id)
     .populate('hostId', ['_id', 'username'])

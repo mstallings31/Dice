@@ -5,8 +5,8 @@
   <div class="card">
     <div class="card-header"><h4>Attending</h4></div>
     <ul class="list-group list-group-flush" style="overflow:auto; height: 540px">
-      <li class="list-group-item"> {{ event.hostUsername }} (Host)</li>
-      <li class="list-group-item" *ngFor="let attendee of event.attendees">{{attendee.username}}
+      <li class="list-group-item"><a routerLink='/profile/{{event.hostId._id}}'>{{ event.hostUsername }} (Host)</a></li>
+      <li class="list-group-item" *ngFor="let attendee of event.attendees"><a routerLink='/profile/{{attendee._id}}'>{{attendee.username}}</a>
         <fa-icon
           *ngIf="isHost"
           pull="right"
@@ -26,15 +26,19 @@
         <div class="col-3">
           <app-date-icon [date]="event.date"></app-date-icon>
         </div>
-        <div class="col-9">
+      <div class="col-9">
           <h5 class="card-title">{{ event.gameId.title }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Hosted By: {{ event.hostUsername}}</h6>
+          <h6 class="card-subtitle text-muted mt-3">Hosted By: {{ event.hostUsername}}</h6>
         </div>
       </div>
-      <p class="card-text">{{ event.eventDetails }}</p>
-      <button *ngIf="isHost" class="btn btn-danger" (click)="onDelete()">Delete Event</button>
-      <button *ngIf="!isHost && !isAttending" class="btn btn-secondary" (click)="onJoin()">Join Event</button>
-      <button *ngIf="!isHost && isAttending" class="btn btn-danger" (click)="onLeave()">Leave Event</button>
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="card-text">{{ event.eventDetails }}</p>
+          <button *ngIf="isHost" class="btn btn-danger" (click)="onDelete()">Delete Event</button>
+          <button *ngIf="!isHost && !isAttending" class="btn btn-secondary" (click)="onJoin()">Join Event</button>
+          <button *ngIf="!isHost && isAttending" class="btn btn-danger" (click)="onLeave()">Leave Event</button>
+        </div>
+      </div>
     </div>
     <div class="card-footer text-muted">
       {{ parsedDate }}
