@@ -30,7 +30,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-
       streetAddress: new FormControl(null, { validators: [Validators.required] }),
       city: new FormControl(null, { validators: [Validators.required] }),
       state: new FormControl(null, { validators: [Validators.required] }),
@@ -75,6 +74,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
 
   onSaveEvent() {
     if (!this.form.valid) {
+      console.log('Form invalid');
       return;
     }
     const isoDate = new Date(this.form.value.date).toISOString();
