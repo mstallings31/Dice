@@ -1,7 +1,8 @@
 <div class="shadow-lg px-3 py-1 mt-1 rounded">
   <div class="row">
     <div class="col-sm-12">
-      <h5 class="text-center">Create A New Event</h5>
+      <h5 *ngIf="!isEditMode" class="text-center">Create Event For {{game.title}}</h5>
+      <h5 *ngIf="isEditMode" class="text-center">Update Event For {{event.gameId.title}}</h5>
     </div>
   </div>
   <form (submit)="onSaveEvent()" [formGroup]="form">

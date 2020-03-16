@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventService } from '../event.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GameEvent } from 'src/app/models/gameEvent.model';
 import { Subscription } from 'rxjs';
+import { GameService } from 'src/app/game.service';
+import { Game } from 'src/app/models/game.model';
 
 @Component({
   selector: 'app-event-form',
@@ -15,15 +17,20 @@ export class EventFormComponent implements OnInit, OnDestroy {
   private eventId: string;
   form: FormGroup;
   gameId: string;
+  gameTitle: string;
   event: GameEvent;
   eventSubscription: Subscription;
+  isLoading: boolean = false;
+  game: Game;
 
   constructor(private eventService: EventService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private gameService: GameService) { }
 
 
   ngOnInit(): void {
     this.form = new FormGroup({
+
       streetAddress: new FormControl(null, { validators: [Validators.required] }),
       city: new FormControl(null, { validators: [Validators.required] }),
       state: new FormControl(null, { validators: [Validators.required] }),
@@ -38,6 +45,13 @@ export class EventFormComponent implements OnInit, OnDestroy {
       // This is a new game
       this.isEditMode = false;
       this.eventId = null;
+      this.gameService.getGame(this.gameId, true)
+      .subscribe(game => {
+          this.game = game;
+          this.isLoading = false;
+        }
+      );
+
     }  else if (this.eventId) {
       // We are editing an existing game
       this.isEditMode = true;
