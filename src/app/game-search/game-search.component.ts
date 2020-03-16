@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { GameService } from '../game.service';
 import { Subscription } from 'rxjs';
 import { Game } from '../models/game.model';

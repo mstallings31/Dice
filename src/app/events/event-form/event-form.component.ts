@@ -51,7 +51,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         }
       );
-
     }  else if (this.eventId) {
       // We are editing an existing game
       this.isEditMode = true;

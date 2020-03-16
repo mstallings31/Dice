@@ -32,6 +32,7 @@ import { DateIconComponent } from './events/event-detail/date-icon/date-icon.com
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserFormComponent } from './user-form/user-form.component';
 import { GameSearchComponent } from './game-search/game-search.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { GameSearchComponent } from './game-search/game-search.component';
     DateIconComponent,
     UserFormComponent,
     GameSearchComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
