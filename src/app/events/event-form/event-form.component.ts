@@ -4,7 +4,7 @@ import { EventService } from '../event.service';
 import { ActivatedRoute } from '@angular/router';
 import { GameEvent } from 'src/app/models/gameEvent.model';
 import { Subscription } from 'rxjs';
-import { GameService } from 'src/app/game.service';
+import { GameService } from 'src/app/games/game.service';
 import { Game } from 'src/app/models/game.model';
 
 @Component({

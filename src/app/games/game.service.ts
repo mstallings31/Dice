@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Game } from './models/game.model';
+import { Game } from '../models/game.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 const BACKEND_URL = environment.apiUrl + 'games/';
 

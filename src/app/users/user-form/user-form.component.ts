@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
-import { mimeType } from '../game-form/mime-type.validator';
-import { User } from '../models/user-model';
+import { mimeType } from '../../games/game-form/mime-type.validator';
+import { User } from '../../models/user-model';
 
 @Component({
   selector: 'app-user-form',

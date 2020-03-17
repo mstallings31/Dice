@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { GameService } from '../game.service';
 import { Subscription } from 'rxjs';
-import { Game } from '../models/game.model';
+import { Game } from '../../models/game.model';
 
 @Component({
   selector: 'app-game-search',
@@ -27,15 +26,15 @@ export class GameSearchComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.gameSub = this.gameService
       .getGameTitles()
-      .subscribe(games => {
-        this.gamesList = games;
-        this.gamesList.sort((a, b) => {
-          const titleA = a.title.toLowerCase();
-          const titleB = b.title.toLowerCase();
-          if (titleA > titleB) { return 1 };
-          if (titleA < titleB) { return -1 };
-          return 0;
-        });
+        .subscribe(games => {
+          this.gamesList = games;
+          this.gamesList.sort((a, b) => {
+            const titleA = a.title.toLowerCase();
+            const titleB = b.title.toLowerCase();
+            if (titleA > titleB) { return 1 };
+            if (titleA < titleB) { return -1 };
+            return 0;
+          });
         this.filteredList = this.gamesList;
         this.isLoading = false;
       },
@@ -50,8 +49,6 @@ export class GameSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(form: NgForm) {}
-
   resetQuery() {
     this.query = '';
     this.filteredList = this.gamesList;
@@ -60,5 +57,4 @@ export class GameSearchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.gameSub.unsubscribe();
   }
-
 }

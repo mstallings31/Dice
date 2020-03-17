@@ -154,7 +154,7 @@ exports.getGames = (req,res, next) => {
   })
 };
 
-// Function: getGameTitle()
+// Function: getGameTitles()
 // Purpose:  Get only the games title and _id to populate
 //           searching features
 exports.getGameTitles = (req, res, next) => {

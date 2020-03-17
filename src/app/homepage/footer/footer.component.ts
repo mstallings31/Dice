@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class FooterComponent implements OnInit, OnDestroy {
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

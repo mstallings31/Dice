@@ -5,8 +5,8 @@
   <div class="card">
     <div class="card-header"><h4>Attending</h4></div>
     <ul class="list-group list-group-flush" style="overflow:auto; height: 540px">
-      <li class="list-group-item"><a routerLink='/profile/{{event.hostId._id}}'>{{ event.hostUsername }} (Host)</a></li>
-      <li class="list-group-item" *ngFor="let attendee of event.attendees"><a routerLink='/profile/{{attendee._id}}'>{{attendee.username}}</a>
+      <li class="list-group-item"><a routerLink='/user/{{event.hostId._id}}'>{{ event.hostUsername }} (Host)</a></li>
+      <li class="list-group-item" *ngFor="let attendee of event.attendees"><a routerLink='/user/{{attendee._id}}'>{{attendee.username}}</a>
         <fa-icon
           *ngIf="isHost"
           pull="right"

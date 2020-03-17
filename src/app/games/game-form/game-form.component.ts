@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Game } from '../models/game.model';
+import { Game } from '../../models/game.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { mimeType } from './mime-type.validator';
 

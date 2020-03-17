@@ -1,42 +1,34 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
-import { GameDetailComponent } from './game-detail/game-detail.component';
-import { GameFormComponent } from './game-form/game-form.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
+import { GameDetailComponent } from './games/game-detail/game-detail.component';
+import { GameFormComponent } from './games/game-form/game-form.component';
 import { AuthGuard } from './auth/auth.guard';
 import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventDetailComponent } from './events/event-detail/event-detail.component';
 import { EventMapComponent } from './event-map/event-map.component';
-import { GameListComponent } from './game-list/game-list.component';
-import { UserPageComponent } from './user-page/user-page.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { UserFormComponent } from './user-form/user-form.component';
-import { GameSearchComponent } from './game-search/game-search.component';
+import { GameListComponent } from './games/game-list/game-list.component';
+import { GameSearchComponent } from './games/game-search/game-search.component';
 
 const appRoutes: Routes = [
   { path: 'game/new', component: GameFormComponent, canActivate: [AuthGuard] },
   { path: 'game/:id', component: GameDetailComponent },
   { path: 'game/:id/edit', component: GameFormComponent, canActivate: [AuthGuard]},
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'game/:gameId/new', component: EventFormComponent, canActivate: [AuthGuard] },
   { path: 'event/:eventId/edit', component: EventFormComponent, canActivate: [AuthGuard]},
   { path: 'event/:id', component: EventDetailComponent },
-  { path: 'user', component: UserPageComponent, canActivate: [AuthGuard] },
-  { path: 'user/edit', component: UserFormComponent, canActivate: [AuthGuard]},
-  { path: 'profile/:id', component: ProfilePageComponent },
+  { path: 'user', loadChildren: () => import('./users/user.module').then(m => m.UserModule)},
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
   { path: '', component: HomepageComponent, children: [
     {path: '', component: EventMapComponent },
     {path: 'nearByEvents', component: EventMapComponent },
     {path: 'popularGames', component: GameListComponent},
-    {path: 'allGames', component: GameSearchComponent}
+    {path: 'allGames', component: GameSearchComponent},
   ] },
 ];
 @NgModule({
   imports: [
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
   ],
   exports: [RouterModule],
   providers: [AuthGuard]

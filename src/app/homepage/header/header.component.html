@@ -19,7 +19,7 @@
               <a *ngIf="isUserAuthenticated" routerLink="user" class="nav-link">Profile</a>
             </li>
               <li class="nav-item" routerLinkActive="active">
-                  <a *ngIf="!isUserAuthenticated" routerLink="login" class="nav-link">Login</a>
+                  <a *ngIf="!isUserAuthenticated" routerLink="auth/login" class="nav-link">Login</a>
                   <a *ngIf="isUserAuthenticated" (click)="onLogout()" class="nav-link">Logout</a>
               </li>
           </ul>

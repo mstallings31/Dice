@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user-model';
+import { User } from '../../models/user-model';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,9 +20,9 @@ export class ProfilePageComponent implements OnInit {
     this.isLoading = true;
     this.id = this.activatedRoute.snapshot.params['id'];
     this.userService.getUser(this.id)
-    .subscribe(userResponse => {
-      this.user = userResponse;
-      this.isLoading = false;
-    });
+      .subscribe(userResponse => {
+        this.user = userResponse;
+        this.isLoading = false;
+      });
   }
 }
