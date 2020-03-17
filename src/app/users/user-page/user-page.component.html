@@ -17,15 +17,15 @@
       <thead>
         <tr>
           <th scope="col">Host</th>
-          <th scope="col">Location</th>
+          <th scope="col">Game</th>
           <th scope="col">Date/Time</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let gameEvent of user.events">
-          <th><a routerLink="/profile/{{gameEvent.hostId}}">{{gameEvent.hostUsername}}</a></th>
-          <td>{{gameEvent.streetAddress}}</td>
+          <th><a routerLink="/user/{{gameEvent.hostId}}">{{gameEvent.hostUsername}}</a></th>
+          <td>{{gameEvent.gameId.title}}</td>
           <td>{{gameEvent.date | date:'longDate'}} at {{ gameEvent.date | date:'shortTime'}}</td>
           <td><a routerLink="/event/{{gameEvent._id}}"><button class="btn btn-sm btn-primary">View Details</button></a></td>
         </tr>

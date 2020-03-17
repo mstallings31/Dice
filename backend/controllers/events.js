@@ -143,9 +143,10 @@ exports.updateEvent = (req, res, next) => {
             response.json.results[0].geometry.location.lat]}
       };
 
-      Event.find({_id: req.params.id, hostId: req.userData._id}, newEvent)
+      Event.updateOne({_id: req.params.id, hostId: req.userData._id}, newEvent)
         .then(updatedEvent => {
           // Event creation was sucessful
+          updatedEvent
           res.status(201).json(updatedEvent);
         })
         .catch(updateFailed => {

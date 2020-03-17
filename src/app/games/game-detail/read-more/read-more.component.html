@@ -1,5 +1,5 @@
 <div *ngIf="!isCollapsed; else showMore">
-  <p class="card-text" [innerText]="content | htmlLineBreaks | ellipsis: 500"></p>
+  <p class="card-text" [innerHTML]="content | htmlLineBreaks  | ellipsis: 500 "></p>
   <p class="btn-link" (click)="isCollapsed = !isCollapsed">+ More</p>
 </div>
 <ng-template #showMore>

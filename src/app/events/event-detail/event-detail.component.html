@@ -34,7 +34,10 @@
       <div class="row mt-3">
         <div class="col-12">
           <p class="card-text">{{ event.eventDetails }}</p>
-          <button *ngIf="isHost" class="btn btn-danger" (click)="onDelete()">Delete Event</button>
+          <div *ngIf="isHost" class="btn-toolbar">
+            <a [routerLink]="['edit']" class="btn btn-info mr-2">Edit Event</a>
+            <button  class="btn btn-danger" (click)="onDelete()">Delete Event</button>
+          </div>
           <button *ngIf="!isHost && !isAttending" class="btn btn-secondary" (click)="onJoin()">Join Event</button>
           <button *ngIf="!isHost && isAttending" class="btn btn-danger" (click)="onLeave()">Leave Event</button>
         </div>
@@ -45,7 +48,7 @@
     </div>
   </div>
   <div class="card">
-    <a href="https://www.google.com/maps/dir/?api=1&destination={{event.streetAddress}}+{{event.city}}+{{event.state}}+{{event.zipCode}}">
+    <a target="_blank" href="https://www.google.com/maps/dir/?api=1&destination={{event.streetAddress}}+{{event.city}}+{{event.state}}+{{event.zipCode}}">
       <img class="img-fluid rounded" src="http://maps.googleapis.com/maps/api/staticmap?center={{event.coords.coordinates[1]}},{{event.coords.coordinates[0]}}&amp;zoom=16&amp;size=400x650&amp;sensor=false&amp;markers={{event.coords.coordinates[1]}},{{event.coords.coordinates[0]}}&amp;scale=2&amp;key={{ apiKey }}">
     </a>
   </div>

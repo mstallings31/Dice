@@ -23,7 +23,7 @@ export class HistoryService {
   }
 
   public getLastNonLoginUrl(): string {
-    const exclude: string[] = ['/signup', '/login'];
+    const exclude: string[] = ['/auth/signup', '/auth/login'];
     const filtered = this.urls.filter(url => !exclude.includes(url));
     const length = filtered.length;
     return length > 0 ? filtered[length -1] : '/';

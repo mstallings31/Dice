@@ -35,7 +35,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
       state: new FormControl(null, { validators: [Validators.required] }),
       zipCode: new FormControl(null, { validators: [Validators.required] }),
       date: new FormControl(null, { validators: [Validators.required] }),
-      eventDetails: new FormControl(null, { validators: [Validators.required] }),
+      eventDetails: new FormControl(null, { }),
     });
 
     this.gameId = this.activatedRoute.snapshot.params['gameId'];

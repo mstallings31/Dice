@@ -10,7 +10,7 @@ exports.createNewUser = (req, res, next) => {
   user.email = req.body.email;
   user.username = req.body.username;
   user.setPassword(req.body.password);
-  user.imagePath = 'http://localhost:3000/images/users/blank-profile.png'
+  user.imagePath = 'http://dice-angular.s3-website.us-east-2.amazonaws.com/assets/images/users/blank-profile.png'
 
   // Save the user
   user.save()
@@ -41,7 +41,7 @@ exports.createNewUser = (req, res, next) => {
 // Purpose: Generate a JSON webtoken to send back as a response
 generateToken = (res, user) => {
   const token = user.generateJwt();
-  res.status(200).json({
+  return res.status(200).json({
     token: token,
     expiresIn: 3600,
     userId: user._id,
